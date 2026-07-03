@@ -1,0 +1,19 @@
+.logo{
+  cursor: pointer;
+}
+.logoSpan{
+  color: var(--color-accent);
+}
+
+
+@media (min-width: 577px) and (max-width: 991px) {
+.customHeader{
+  /* justify-content: space-between; */
+}
+}
+
+@media (max-width: 576px) {
+.customHeader{
+  
+}
+}

@@ -1,9 +1,12 @@
 export interface Room {
   id:           number;
-  room_number:  string;
-  type:         string;
+  name:         string;
   price:        number;
+  rating:       number;
   is_available: boolean;
+  description:string;
+  amenities:string[];
+  image:string;
 }
 
 export interface Guest {

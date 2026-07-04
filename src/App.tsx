@@ -11,6 +11,7 @@ import Dashboard from './pages/Admin/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Room from './pages/Room.';
+import RoomDetail from './pages/RoomDetail';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
@@ -33,6 +34,7 @@ const AppRoutes=()=>{
                   <Route path='/about' element={<About/>}></Route>
                   <Route path='/contact' element={<Contact/>}></Route>
                   <Route path='/rooms' element={<Room/>}></Route>
+                  <Route path='/rooms/roomDetails' element={<RoomDetail/>}></Route>
               </Routes>
           </>
 }

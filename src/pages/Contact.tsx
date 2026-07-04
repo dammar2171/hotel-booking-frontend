@@ -82,7 +82,7 @@ export default function Contact() {
 
                     <div className="container">
 
-                        <div className="row g-5">
+                        <div className="row g-5 d-md-flex justify-content-md-center align-items-center">
 
                             {/* Contact Info */}
 

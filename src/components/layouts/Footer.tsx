@@ -46,10 +46,10 @@ const Footer = () =>{
               }}>
                 Quick Links
               </h6>
-              {["Home", "Rooms", "About Us", "Contact"].map((link) => (
+              {["Home", "Rooms", "About", "Contact"].map((link) => (
                 <div key={link} style={{ marginBottom: "10px" }}>
                   <span
-                    onClick={() => navigate(`/${link.toLowerCase().replace(" ", "-")}`)}
+                    onClick={() => link === "Home" ? navigate('/'):navigate(`/${link.toLowerCase().replace(" ", "-")}`)}
                     style={{
                       color:    "var(--color-text-footer)",
                       fontSize: "var(--text-sm)",
@@ -105,8 +105,8 @@ const Footer = () =>{
                 Contact Us
               </h6>
               {[
-                { icon: "📍", text: "Kathmandu, Nepal" },
-                { icon: "📞", text: "+977 98XXXXXXXX" },
+                { icon: "📍", text: "Mahendranagar, Nepal" },
+                { icon: "📞", text: "+977 9805752792" },
                 { icon: "✉️", text: "info@hotelbooking.com" },
                 { icon: "🕐", text: "24/7 Support" },
               ].map((c) => (

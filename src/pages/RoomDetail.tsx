@@ -36,7 +36,7 @@ function RoomDetail() {
         <BreadCrumb/>
       </div> 
       <RoomHero room={rooms}/>
-      <div className="container" style={{background: "var(--color-bg-primary)"}}>
+      <div className="container pb-5" style={{background: "var(--color-bg-primary)"}}>
         <CtaCard ctaData={ctaData}/>
       </div>
       </div>

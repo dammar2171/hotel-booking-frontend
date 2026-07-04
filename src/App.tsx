@@ -10,8 +10,8 @@ import ToastProvider from './contexts/ToastContext';
 import Dashboard from './pages/Admin/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Room from './pages/Room.';
 import RoomDetail from './pages/RoomDetail';
+import Room from './pages/Room';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{

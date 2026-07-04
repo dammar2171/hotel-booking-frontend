@@ -164,7 +164,7 @@ export default function RoomHero({ room }: RoomHeroProps) {
                   <strong>City View</strong>
                 </div>
               </div>
-
+<div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>{room.amenities.map((item)=>(<span style={{padding:"6px 12px"}}>✅{item}</span>))}</div>
             </div>
 
             {/* Buttons */}

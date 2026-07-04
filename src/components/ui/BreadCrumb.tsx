@@ -1,5 +1,8 @@
 import { NavLink } from 'react-router'
-function BreadCrumb() {
+interface BreadCrumbProps{
+  currentPage:string;
+}
+function BreadCrumb({currentPage}:BreadCrumbProps) {
   return (
     <nav aria-label="breadcrumb">
     <ol className="breadcrumb">
@@ -7,7 +10,7 @@ function BreadCrumb() {
       <NavLink to="/rooms">Back</NavLink>
     </li>
     <li className="breadcrumb-item active" aria-current="page">
-      Room Details
+      {currentPage}
     </li>
   </ol>
 </nav>

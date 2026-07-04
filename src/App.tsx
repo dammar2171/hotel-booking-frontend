@@ -12,6 +12,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import RoomDetail from './pages/RoomDetail';
 import Room from './pages/Room';
+import Booking from './pages/Booking';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
@@ -35,6 +36,7 @@ const AppRoutes=()=>{
                   <Route path='/contact' element={<Contact/>}></Route>
                   <Route path='/rooms' element={<Room/>}></Route>
                   <Route path='/rooms/roomDetails' element={<RoomDetail/>}></Route>
+                  <Route path='/booking' element={<Booking/>}></Route>
               </Routes>
           </>
 }

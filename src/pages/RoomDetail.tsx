@@ -33,7 +33,7 @@ function RoomDetail() {
       <Navbar/>
       <div className="container-fluid py-2" style={{background: "var(--color-bg-primary)"}}>
         <div className="container" >
-        <BreadCrumb/>
+        <BreadCrumb currentPage='bookDetails'/>
       </div> 
       <RoomHero room={rooms}/>
       <div className="container pb-5" style={{background: "var(--color-bg-primary)"}}>

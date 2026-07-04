@@ -63,3 +63,14 @@ export interface Stats {
   occupancyRate:     number;
   topBookingRoom:    string;
 }
+
+export interface BookingData {
+  fullName: string;
+  email: string;
+  phone: string;
+  checkIn: string;
+  checkOut: string;
+  guests: number;
+  paymentMethod: "hotel" | "online";
+  specialRequest: string;
+}

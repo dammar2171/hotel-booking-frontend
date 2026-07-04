@@ -36,7 +36,7 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
       {children}
       <div style={{
         position: "fixed",
-        bottom:   "24px",
+        top:   "34px",
         right:    "24px",
         zIndex:   1000,
         display:  "flex",

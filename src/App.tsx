@@ -6,6 +6,11 @@ import { Routes } from 'react-router';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ToastProvider from './contexts/ToastContext';
+import Dashboard from './pages/Admin/Dashboard';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Room from './pages/Room.';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
@@ -24,6 +29,10 @@ const AppRoutes=()=>{
                   <Route path='/' element= {<Home/>}></Route>
                   <Route path='/login' element={<Login/>}></Route>
                   <Route path='/register' element={<Register/>}></Route>
+                  <Route path='/admin' element={<Dashboard/>}></Route>
+                  <Route path='/about' element={<About/>}></Route>
+                  <Route path='/contact' element={<Contact/>}></Route>
+                  <Route path='/rooms' element={<Room/>}></Route>
               </Routes>
           </>
 }
@@ -32,9 +41,11 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
+        <ToastProvider>
         <BrowserRouter>
           <AppRoutes></AppRoutes>
         </BrowserRouter>
+        </ToastProvider>
       </AuthProvider>
     </ThemeProvider>
   )

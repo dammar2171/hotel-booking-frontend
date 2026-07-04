@@ -1,32 +1,160 @@
-import { GrInstagram } from "react-icons/gr";
-import { FaFacebook } from "react-icons/fa";
+import { useNavigate } from "react-router";
+
 const Footer = () =>{
-  return <div className="container">
-    <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div className="col-md-4 d-flex align-items-center">
-    <a
-      href="/"
-      className="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1"
-    >
-      <h3>H<span style={{color:"var(--color-accent)"}}>B</span>C</h3>
-    </a>
-    <span className="mb-3 mb-md-0 text-body-secondary">
-      © 2026 HBC, company
-    </span>
-  </div>
-  <ul className="nav mb-3 col-md-4 justify-content-end list-unstyled d-flex">
-    <li className="ms-1">
-      <a className="text-body-secondary" href="#" aria-label="Instagram">
-        <GrInstagram />
-      </a>
-    </li>
-    <li className="ms-3">
-      <a className="text-body-secondary" href="#" aria-label="Facebook">
-        <FaFacebook />
-      </a>
-    </li>
-  </ul>
-</footer>
-  </div>
+  const navigate=useNavigate()
+ return <footer className="custom-footer">
+        <div className="container">
+          <div className="row g-4 mb-5">
+
+            {/* Brand */}
+            <div className="col-lg-4">
+              <div style={{
+                display:      "flex",
+                alignItems:   "center",
+                gap:          "8px",
+                marginBottom: "16px",
+              }}>
+                <span style={{ fontSize: "1.5rem" }}>🏨</span>
+                <span style={{
+                  fontWeight: 800,
+                  fontSize:   "1.1rem",
+                  color:      "var(--color-accent)",
+                }}>
+                  HotelBook
+                </span>
+              </div>
+              <p style={{
+                color:     "var(--color-text-footer)",
+                fontSize:  "var(--text-sm)",
+                lineHeight: 1.7,
+                maxWidth:  "280px",
+              }}>
+                Your trusted hotel booking platform.
+                Comfort, luxury and great service — all in one place.
+              </p>
+            </div>
+
+            {/* Quick Links */}
+            <div className="col-sm-6 col-lg-2">
+              <h6 style={{
+                color:        "#ffffff",
+                fontWeight:   600,
+                marginBottom: "16px",
+                fontSize:     "var(--text-sm)",
+                textTransform:"uppercase",
+                letterSpacing:"0.05em",
+              }}>
+                Quick Links
+              </h6>
+              {["Home", "Rooms", "About Us", "Contact"].map((link) => (
+                <div key={link} style={{ marginBottom: "10px" }}>
+                  <span
+                    onClick={() => navigate(`/${link.toLowerCase().replace(" ", "-")}`)}
+                    style={{
+                      color:    "var(--color-text-footer)",
+                      fontSize: "var(--text-sm)",
+                      cursor:   "pointer",
+                      transition:"var(--transition-fast)",
+                    }}
+                  >
+                    {link}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Services */}
+            <div className="col-sm-6 col-lg-3">
+              <h6 style={{
+                color:        "#ffffff",
+                fontWeight:   600,
+                marginBottom: "16px",
+                fontSize:     "var(--text-sm)",
+                textTransform:"uppercase",
+                letterSpacing:"0.05em",
+              }}>
+                Services
+              </h6>
+              {[
+                "Room Booking",
+                "Event Hosting",
+                "Airport Pickup",
+                "Room Service",
+              ].map((s) => (
+                <div key={s} style={{ marginBottom: "10px" }}>
+                  <span style={{
+                    color:    "var(--color-text-footer)",
+                    fontSize: "var(--text-sm)",
+                  }}>
+                    {s}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Contact */}
+            <div className="col-lg-3">
+              <h6 style={{
+                color:        "#ffffff",
+                fontWeight:   600,
+                marginBottom: "16px",
+                fontSize:     "var(--text-sm)",
+                textTransform:"uppercase",
+                letterSpacing:"0.05em",
+              }}>
+                Contact Us
+              </h6>
+              {[
+                { icon: "📍", text: "Kathmandu, Nepal" },
+                { icon: "📞", text: "+977 98XXXXXXXX" },
+                { icon: "✉️", text: "info@hotelbooking.com" },
+                { icon: "🕐", text: "24/7 Support" },
+              ].map((c) => (
+                <div
+                  key={c.text}
+                  style={{
+                    display:      "flex",
+                    alignItems:   "center",
+                    gap:          "8px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <span style={{ fontSize: "0.9rem" }}>{c.icon}</span>
+                  <span style={{
+                    color:    "var(--color-text-footer)",
+                    fontSize: "var(--text-sm)",
+                  }}>
+                    {c.text}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer bottom */}
+          <div style={{
+            borderTop:  "1px solid rgba(255,255,255,0.08)",
+            paddingTop: "24px",
+            display:    "flex",
+            justifyContent:"space-between",
+            alignItems: "center",
+            flexWrap:   "wrap",
+            gap:        "12px",
+          }}>
+            <span style={{
+              color:    "var(--color-text-footer)",
+              fontSize: "var(--text-sm)",
+            }}>
+              © 2024 HotelBook. All rights reserved.
+            </span>
+            <span style={{
+              color:    "var(--color-text-footer)",
+              fontSize: "var(--text-sm)",
+            }}>
+              Built with ❤️ by Dammar Bhatt
+            </span>
+          </div>
+        </div>
+      </footer>
 }
 export default Footer;

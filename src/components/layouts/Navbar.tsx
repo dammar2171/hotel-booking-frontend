@@ -61,8 +61,7 @@ export default function Navbar() {
             style={{ listStyle: "none", padding: 0 }}
           >
             <li>
-              <NavLink to="/" end style={activeLinkStyle}
-                className="text-decoration-none"
+              <NavLink to="/"              className="text-decoration-none"
                 style={({ isActive }) => ({
                   ...activeLinkStyle({ isActive }),
                   fontSize:       "0.9rem",

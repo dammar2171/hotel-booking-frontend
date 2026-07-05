@@ -74,3 +74,10 @@ export interface BookingData {
   paymentMethod: "hotel" | "online";
   specialRequest: string;
 }
+
+export interface UserRegisterData{
+  name:string;
+  email:string;
+  password:string;
+  confirmPsd:string;
+}

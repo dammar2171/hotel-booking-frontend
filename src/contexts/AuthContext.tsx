@@ -16,15 +16,23 @@ export const AuthProvider =({children}:{children:ReactNode})=>{
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null)
 
-  useEffect(()=>{
+  useEffect(() => {
   const savedToken = localStorage.getItem("token");
   const savedUser = localStorage.getItem("user");
 
-  if(savedToken && savedUser){
+  if (savedToken) {
     setToken(savedToken);
-    setUser(JSON.parse(savedUser));
   }
-  },[])
+
+  if (savedUser && savedUser !== "undefined") {
+    try {
+      setUser(JSON.parse(savedUser));
+    } catch (error) {
+      console.error("Invalid user in localStorage", error);
+      localStorage.removeItem("user");
+    }
+  }
+}, []);
 
   const login = (token:string,user:User):void=>{
     localStorage.setItem("token",token);

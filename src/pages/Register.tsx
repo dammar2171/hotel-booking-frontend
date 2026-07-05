@@ -2,19 +2,19 @@ import {Link,useNavigate} from "react-router";
 import React, { useState } from "react";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import type { UserRegisterData } from "../types";
-import { register } from "../services/authServices";
+import { registerService } from "../services/authServices";
 import { useToast } from "../contexts/ToastContext";
 import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [userForm,setUserForm]=useState<UserRegisterData>({name:"",email:"",password:"",confirmPsd:""});
+  const [registerForm,setRegisterForm]=useState<UserRegisterData>({name:"",email:"",password:"",confirmPsd:""});
 
   const {addToast} =useToast()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value } = e.target;
-  setUserForm((prev) => ({
+  setRegisterForm((prev) => ({
     ...prev,
     [name]: value,
   }));
@@ -23,13 +23,13 @@ const Register = () => {
   e: React.FormEvent<HTMLFormElement>
 ): Promise<void> => {
   e.preventDefault();
-  console.log(userForm);
+  console.log(registerForm);
   try {
-    const response = await register(userForm);
+    const response = await registerService(registerForm);
     if(response.status=== 201){
       addToast("Registration successful!","success")
       navigate("/login");
-      setUserForm({name:"",email:"",password:"",confirmPsd:""})
+      setRegisterForm({name:"",email:"",password:"",confirmPsd:""})
     }
   } catch (error) {
   if (axios.isAxiosError(error)) {
@@ -55,7 +55,7 @@ const Register = () => {
               className="custom-input"
               id="nameInput"
               name="name"
-              value={userForm.name}
+              value={registerForm.name}
               onChange={handleChange}
             />
           </div>
@@ -69,7 +69,7 @@ const Register = () => {
               name="email"
               className="custom-input"
               id="exampleInputEmail1"
-              value={userForm.email}
+              value={registerForm.email}
               onChange={handleChange}
             />
 
@@ -88,7 +88,7 @@ const Register = () => {
               className="custom-input"
               id="exampleInputPassword1"
               name="password"
-              value={userForm.password}
+              value={registerForm.password}
               onChange={handleChange}
             />
           </div>
@@ -102,7 +102,7 @@ const Register = () => {
               className="custom-input"
               id="exampleInputPassword2"
               name="confirmPsd"
-              value={userForm.confirmPsd}
+              value={registerForm.confirmPsd}
               onChange={handleChange}
             />
           </div>

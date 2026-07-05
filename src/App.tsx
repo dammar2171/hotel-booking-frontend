@@ -13,6 +13,9 @@ import Contact from './pages/Contact';
 import RoomDetail from './pages/RoomDetail';
 import Room from './pages/Room';
 import Booking from './pages/Booking';
+import DashboardStats from './pages/Admin/DashboardStats';
+import ManageRooms from './pages/Admin/ManageRooms';
+import ManageGuests from './pages/Admin/ManageGuests';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
@@ -37,6 +40,11 @@ const AppRoutes=()=>{
                   <Route path='/rooms' element={<Room/>}></Route>
                   <Route path='/rooms/roomDetails' element={<RoomDetail/>}></Route>
                   <Route path='/booking' element={<Booking/>}></Route>
+                  <Route path='/dashboard' element={<ProtectedAdminRoutes><Dashboard/></ProtectedAdminRoutes>}>
+                  <Route index element={<DashboardStats/>}></Route>
+                  <Route path='rooms' element={<ManageRooms/>}></Route>
+                  <Route path='guests' element={<ManageGuests/>}></Route>
+                  </Route>
               </Routes>
           </>
 }

@@ -81,3 +81,7 @@ export interface UserRegisterData{
   password:string;
   confirmPsd:string;
 }
+export interface LoginData{
+  email:string;
+  password:string;
+}

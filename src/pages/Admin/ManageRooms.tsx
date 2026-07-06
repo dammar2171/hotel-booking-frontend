@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useToast } from "../../contexts/ToastContext";
+import LoadingSpinner from "../../components/ui/LoadingSpinner";
 
 interface Room {
   id:           number;
@@ -319,13 +320,7 @@ export default function ManageRooms() {
       }}>
 
         {loading ? (
-          <div className="loading-wrapper">
-            <div
-              className="spinner-border"
-              style={{ color: "var(--color-accent)" }}
-              role="status"
-            />
-          </div>
+          <LoadingSpinner/>
         ) : filtered.length === 0 ? (
           <div className="empty-state">
             <div style={{ fontSize: "3rem" }}>🛏️</div>

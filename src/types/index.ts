@@ -23,7 +23,7 @@ export interface Booking {
   check_in:    string;
   check_out:   string;
   total_price: number;
-  status:      "confirmed" | "cancelled" | "pending";
+  status: "confirmed" | "cancelled" | "pending";
 }
 
 export interface User {

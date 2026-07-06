@@ -16,6 +16,11 @@ import Booking from './pages/Booking';
 import DashboardStats from './pages/Admin/DashboardStats';
 import ManageRooms from './pages/Admin/ManageRooms';
 import ManageGuests from './pages/Admin/ManageGuests';
+import ManageBookings from './pages/Admin/ManageBooking';
+import StatsPage from './pages/Admin/StatsPage';
+import Settings from './pages/Admin/Settings';
+import Profile from './pages/Profile';
+import Setting from './pages/Setting';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
@@ -40,10 +45,15 @@ const AppRoutes=()=>{
                   <Route path='/rooms' element={<Room/>}></Route>
                   <Route path='/rooms/roomDetails' element={<RoomDetail/>}></Route>
                   <Route path='/booking' element={<Booking/>}></Route>
+                  <Route path='/profile' element={<Profile/>}></Route>
+                  <Route path='/settings' element={<Setting/>}></Route>
                   <Route path='/dashboard' element={<ProtectedAdminRoutes><Dashboard/></ProtectedAdminRoutes>}>
                   <Route index element={<DashboardStats/>}></Route>
                   <Route path='rooms' element={<ManageRooms/>}></Route>
                   <Route path='guests' element={<ManageGuests/>}></Route>
+                  <Route path='bookings' element={<ManageBookings/>}></Route>
+                   <Route path='stats' element={<StatsPage/>}></Route>
+                   <Route path='settings' element={<Settings/>}></Route>
                   </Route>
               </Routes>
           </>

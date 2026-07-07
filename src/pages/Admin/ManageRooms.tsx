@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useToast } from "../../contexts/ToastContext";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import MiniCard from "../../components/ui/MiniCard";
 
 interface Room {
   id:           number;
@@ -229,48 +230,9 @@ export default function ManageRooms() {
             color: "var(--color-warning-text)",
             bg:    "var(--color-warning-bg)",
           },
-        ].map((s) => (
-          <div key={s.label} className="col-sm-4">
-            <div style={{
-              background:   "var(--color-bg-card)",
-              border:       "1px solid var(--color-border)",
-              borderRadius: "var(--radius-md)",
-              padding:      "20px",
-              display:      "flex",
-              alignItems:   "center",
-              gap:          "16px",
-            }}>
-              <div style={{
-                width:        "48px",
-                height:       "48px",
-                borderRadius: "var(--radius-md)",
-                background:   s.bg,
-                display:      "flex",
-                alignItems:   "center",
-                justifyContent:"center",
-                fontSize:     "1.4rem",
-                flexShrink:   0,
-              }}>
-                {s.icon}
-              </div>
-              <div>
-                <div style={{
-                  fontSize:   "1.5rem",
-                  fontWeight: 800,
-                  color:      s.color,
-                  lineHeight: 1,
-                }}>
-                  {s.value}
-                </div>
-                <div style={{
-                  fontSize: "var(--text-xs)",
-                  color:    "var(--color-text-muted)",
-                  marginTop:"4px",
-                }}>
-                  {s.label}
-                </div>
-              </div>
-            </div>
+        ].map((summary) => (
+          <div key={summary.label} className="col-sm-4">
+            <MiniCard summary={summary}/>
           </div>
         ))}
       </div>

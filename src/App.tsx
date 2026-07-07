@@ -21,6 +21,7 @@ import StatsPage from './pages/Admin/StatsPage';
 import Settings from './pages/Admin/Settings';
 import Profile from './pages/Profile';
 import Setting from './pages/Setting';
+import MyBookings from './pages/MyBooking';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
@@ -47,6 +48,7 @@ const AppRoutes=()=>{
                   <Route path='/booking' element={<Booking/>}></Route>
                   <Route path='/profile' element={<Profile/>}></Route>
                   <Route path='/settings' element={<Setting/>}></Route>
+                  <Route path='/my-bookings' element={<MyBookings/>}></Route>
                   <Route path='/dashboard' element={<ProtectedAdminRoutes><Dashboard/></ProtectedAdminRoutes>}>
                   <Route index element={<DashboardStats/>}></Route>
                   <Route path='rooms' element={<ManageRooms/>}></Route>

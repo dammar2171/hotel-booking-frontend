@@ -117,7 +117,7 @@ export default function Navbar() {
             {isLogged && (
               <li>
                 <NavLink
-                  to="/bookings"
+                  to="/my-bookings"
                   className="text-decoration-none"
                   style={({ isActive }) => ({
                     ...activeLinkStyle({ isActive }),
@@ -314,7 +314,7 @@ export default function Navbar() {
                     {/* Dropdown items */}
                     {[
                       { icon: "👤", label: "My Profile",   path: "/profile" },
-                      { icon: "📋", label: "My Bookings",  path: "/bookings" },
+                      { icon: "📋", label: "My Bookings",  path: "/my-bookings" },
                       { icon: "⚙️", label: "Settings",     path: "/settings" },
                       ...(isAdmin
                         ? [{ icon: "🛠️", label: "Dashboard", path: "/dashboard" }]

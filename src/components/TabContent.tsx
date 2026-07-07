@@ -98,7 +98,7 @@ function TabContent({activeTab,setActiveTab,card,user}:TabContentProps) {
     }
     setSubmittingPassword(true);
     try {
-      await api.put(`/users/${user?.id}/password`, {
+      await api.put(`auth/${user?.id}/password`, {
         currentPassword: passwordForm.currentPassword,
         newPassword:     passwordForm.newPassword,
       });

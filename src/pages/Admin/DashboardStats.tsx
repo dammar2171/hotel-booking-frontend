@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../../api/axios";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import MiniCard from "../../components/ui/MiniCard";
 
 interface Stats {
   totalRooms:        number;
@@ -167,61 +168,9 @@ export default function DashboardStats() {
 
       {/* ── Stat Cards Grid ───────────────────── */}
       <div className="row g-4 mb-5">
-        {statCards.map((card) => (
-          <div key={card.label} className="col-sm-6 col-xl-3">
-            <div style={{
-              background:   "var(--color-bg-card)",
-              border:       "1px solid var(--color-border)",
-              borderRadius: "var(--radius-md)",
-              padding:      "24px",
-              boxShadow:    "var(--shadow-card)",
-              transition:   "var(--transition-base)",
-              height:       "100%",
-            }}>
-              {/* Icon + value */}
-              <div style={{
-                display:       "flex",
-                alignItems:    "flex-start",
-                justifyContent:"space-between",
-                marginBottom:  "16px",
-              }}>
-                <div>
-                  <p style={{
-                    fontSize:  "var(--text-xs)",
-                    color:     "var(--color-text-muted)",
-                    fontWeight: 600,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.05em",
-                    margin:    0,
-                    marginBottom: "6px",
-                  }}>
-                    {card.label}
-                  </p>
-                  <div style={{
-                    fontSize:  "1.75rem",
-                    fontWeight: 800,
-                    color:     card.color,
-                    lineHeight: 1,
-                  }}>
-                    {card.value}
-                  </div>
-                </div>
-                <div style={{
-                  width:        "44px",
-                  height:       "44px",
-                  background:   card.bg,
-                  border:       `1px solid ${card.border}`,
-                  borderRadius: "var(--radius-md)",
-                  display:      "flex",
-                  alignItems:   "center",
-                  justifyContent:"center",
-                  fontSize:     "1.3rem",
-                  flexShrink:   0,
-                }}>
-                  {card.icon}
-                </div>
-              </div>
-            </div>
+        {statCards.map((summary) => (
+          <div key={summary.label} className="col-sm-6 col-xl-3">
+           <MiniCard summary={summary}/>
           </div>
         ))}
       </div>

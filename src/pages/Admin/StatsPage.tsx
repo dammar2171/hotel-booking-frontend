@@ -16,6 +16,7 @@ import {
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import type { Stats } from "../../types";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
+import MiniCard from "../../components/ui/MiniCard";
 
 ChartJS.register(
   CategoryScale,
@@ -324,48 +325,9 @@ export default function StatsPage() {
             color: "var(--color-warning-text)",
             bg:    "var(--color-warning-bg)",
           },
-        ].map((kpi) => (
-          <div key={kpi.label} className="col-sm-6 col-xl-3">
-            <div style={{
-              ...card,
-              display:    "flex",
-              alignItems: "center",
-              gap:        "16px",
-            }}>
-              <div style={{
-                width:         "52px",
-                height:        "52px",
-                borderRadius:  "var(--radius-md)",
-                background:    kpi.bg,
-                display:       "flex",
-                alignItems:    "center",
-                justifyContent:"center",
-                fontSize:      "1.5rem",
-                flexShrink:    0,
-              }}>
-                {kpi.icon}
-              </div>
-              <div>
-                <div style={{
-                  fontSize:   "var(--text-xs)",
-                  color:      "var(--color-text-muted)",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.05em",
-                }}>
-                  {kpi.label}
-                </div>
-                <div style={{
-                  fontSize:   "1.4rem",
-                  fontWeight: 800,
-                  color:      kpi.color,
-                  lineHeight: 1.2,
-                  marginTop:  "4px",
-                }}>
-                  {kpi.value}
-                </div>
-              </div>
-            </div>
+        ].map((summary) => (
+          <div key={summary.label} className="col-sm-6 col-xl-3">
+            <MiniCard summary={summary}/>
           </div>
         ))}
       </div>

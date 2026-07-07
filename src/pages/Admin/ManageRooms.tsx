@@ -10,13 +10,21 @@ interface Room {
   type:         string;
   price:        number;
   is_available: boolean;
+  description:  string;
+  image_url:    string;
+  rating:       string;
+  amenities:    string[]; 
 }
 
 interface RoomForm {
-  room_number: string;
-  type:        string;
-  price:       string;
+  room_number:  string;
+  type:         string;
+  price:        string;
   is_available: boolean;
+  description:  string;
+  image_url:    string;
+  rating:       string;
+  amenities:    string ; 
 }
 
 const emptyForm: RoomForm = {
@@ -24,6 +32,10 @@ const emptyForm: RoomForm = {
   type:         "",
   price:        "",
   is_available: true,
+  description:  "",
+  image_url:    "",
+  rating:       "",
+  amenities:    "",
 };
 
 const roomTypes = ["standard", "deluxe", "suite", "family", "penthouse"];
@@ -63,16 +75,19 @@ export default function ManageRooms() {
   };
 
   const openEdit = (room: Room) => {
-    setEditRoom(room);
-    setForm({
-      room_number:  room.room_number,
-      type:         room.type,
-      price:        String(room.price),
-      is_available: room.is_available,
-    });
-    setShowModal(true);
-  };
-
+  setEditRoom(room);
+  setForm({
+    room_number:  room.room_number,
+    type:         room.type,
+    price:        String(room.price),
+    is_available: room.is_available,
+    description:  room.description  ?? "",
+    image_url:    room.image_url    ?? "",
+    rating:       room.rating !== null ? String(room.rating) : "",
+    amenities:    room.amenities?.join(", ") ?? "",
+  });
+  setShowModal(true);
+};
   const closeModal = () => {
     setShowModal(false);
     setEditRoom(null);
@@ -101,11 +116,17 @@ export default function ManageRooms() {
     setSubmitting(true);
     try {
       const payload = {
-        room_number:  form.room_number,
-        type:         form.type,
-        price:        Number(form.price),
-        is_available: form.is_available,
-      };
+  room_number:  form.room_number,
+  type:         form.type,
+  price:        Number(form.price),
+  is_available: form.is_available,
+  description:  form.description  || undefined,
+  image_url:    form.image_url    || undefined,
+  rating:       form.rating ? Number(form.rating) : undefined,
+  amenities:    form.amenities
+    ? form.amenities.split(",").map((a) => a.trim()).filter(Boolean)
+    : undefined,
+};
 
       if (editRoom) {
         await api.put(`/rooms/${editRoom.id}`, payload);
@@ -402,13 +423,14 @@ export default function ManageRooms() {
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              background:   "var(--color-bg-card)",
-              border:       "1px solid var(--color-border)",
+             background: "var(--color-bg-card)",
+              border: "1px solid var(--color-border)",
               borderRadius: "var(--radius-lg)",
-              width:        "100%",
-              maxWidth:     "480px",
-              boxShadow:    "var(--shadow-xl)",
-              overflow:     "hidden",
+              width: "100%",
+              maxWidth: "480px",
+              height: "90vh",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
             {/* Modal header */}
@@ -443,8 +465,8 @@ export default function ManageRooms() {
             </div>
 
             {/* Modal body */}
-            <div style={{ padding: "24px" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+           <div style={{ padding: "24px", overflowY: "auto",flex: 1,minHeight:0 }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
 
                 {/* Room number */}
                 <div>
@@ -513,7 +535,145 @@ export default function ManageRooms() {
                     min="0"
                   />
                 </div>
+                  {/* Description */}
+<div>
+  <label style={{
+    display:      "block",
+    fontSize:     "var(--text-sm)",
+    fontWeight:   600,
+    color:        "var(--color-text-secondary)",
+    marginBottom: "6px",
+  }}>
+    Description
+  </label>
+  <textarea
+    name="description"
+    value={form.description}
+    onChange={(e) =>
+      setForm((prev) => ({ ...prev, description: e.target.value }))
+    }
+    placeholder="Describe the room..."
+    rows={3}
+    className="custom-input"
+    style={{ resize: "vertical" }}
+  />
+</div>
 
+{/* Image URL */}
+<div>
+  <label style={{
+    display:      "block",
+    fontSize:     "var(--text-sm)",
+    fontWeight:   600,
+    color:        "var(--color-text-secondary)",
+    marginBottom: "6px",
+  }}>
+    Image URL
+  </label>
+  <input
+    name="image_url"
+    type="url"
+    value={form.image_url}
+    onChange={handleChange}
+    placeholder="https://example.com/room.jpg"
+    className="custom-input"
+  />
+  {/* Preview */}
+  {form.image_url && (
+    <img
+      src={form.image_url}
+      alt="Room preview"
+      onError={(e) => (e.currentTarget.style.display = "none")}
+      style={{
+        width:        "100%",
+        height:       "140px",
+        objectFit:    "cover",
+        borderRadius: "var(--radius-sm)",
+        marginTop:    "8px",
+        border:       "1px solid var(--color-border)",
+      }}
+    />
+  )}
+</div>
+
+{/* Rating */}
+<div>
+  <label style={{
+    display:      "block",
+    fontSize:     "var(--text-sm)",
+    fontWeight:   600,
+    color:        "var(--color-text-secondary)",
+    marginBottom: "6px",
+  }}>
+    Rating (0 – 5)
+  </label>
+  <input
+    name="rating"
+    type="number"
+    value={form.rating}
+    onChange={handleChange}
+    placeholder="e.g. 4.5"
+    className="custom-input"
+    min="0"
+    max="5"
+    step="0.1"
+  />
+</div>
+
+{/* Amenities */}
+<div>
+  <label style={{
+    display:      "block",
+    fontSize:     "var(--text-sm)",
+    fontWeight:   600,
+    color:        "var(--color-text-secondary)",
+    marginBottom: "6px",
+  }}>
+    Amenities
+    <span style={{
+      fontSize:   "var(--text-xs)",
+      fontWeight: 400,
+      color:      "var(--color-text-muted)",
+      marginLeft: "6px",
+    }}>
+      (comma separated)
+    </span>
+  </label>
+  <input
+    name="amenities"
+    type="text"
+    value={form.amenities}
+    onChange={handleChange}
+    placeholder="WiFi, AC, TV, Mini Bar"
+    className="custom-input"
+  />
+  {/* Live preview chips */}
+  {form.amenities && (
+    <div style={{
+      display:   "flex",
+      flexWrap:  "wrap",
+      gap:       "6px",
+      marginTop: "8px",
+    }}>
+      {form.amenities.split(",").map((a) => a.trim()).filter(Boolean).map((a) => (
+        <span
+          key={a}
+          style={{
+            background:   "var(--color-accent-light)",
+            color:        "var(--color-accent)",
+            border:       "1px solid var(--color-accent-border)",
+            padding:      "2px 10px",
+            borderRadius: "var(--radius-full)",
+            fontSize:     "var(--text-xs)",
+            fontWeight:   500,
+          }}
+        >
+          {a}
+        </span>
+      ))}
+    </div>
+  )}
+</div>
                 {/* Availability */}
                 <div style={{
                   display:    "flex",

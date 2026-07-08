@@ -1,8 +1,7 @@
-import { BrowserRouter, Navigate, Route } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { ThemeProvider } from './contexts/ThemeContext';
-import { Routes } from 'react-router';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -11,7 +10,6 @@ import Dashboard from './pages/Admin/Dashboard';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import RoomDetail from './pages/RoomDetail';
-import Room from './pages/Room';
 import Booking from './pages/Booking';
 import DashboardStats from './pages/Admin/DashboardStats';
 import ManageRooms from './pages/Admin/ManageRooms';
@@ -22,6 +20,8 @@ import Settings from './pages/Admin/Settings';
 import Profile from './pages/Profile';
 import Setting from './pages/Setting';
 import MyBookings from './pages/MyBooking';
+import Room from './pages/Room';
+import { RoomProvider } from './contexts/RoomContext';
 
 
 const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
@@ -66,9 +66,11 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <ToastProvider>
-        <BrowserRouter>
-          <AppRoutes></AppRoutes>
-        </BrowserRouter>
+          <RoomProvider>
+            <BrowserRouter>
+              <AppRoutes></AppRoutes>
+            </BrowserRouter>
+          </RoomProvider>
         </ToastProvider>
       </AuthProvider>
     </ThemeProvider>

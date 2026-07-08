@@ -1,15 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
-interface Room {
-  id: number;
-  name: string;
-  price: number;
-  rating: number;
-  is_available: boolean;
-  description: string;
-  amenities: string[];
-  image: string;
-}
+import type { Room } from "../types";
 
 interface RoomCardProps {
   room: Room;
@@ -37,7 +27,7 @@ const RoomCard = ({ room }: RoomCardProps) => {
             fontSize: "5rem",
           }}
         >
-          {room.image}
+          {room.image_url}
         </div>
 
         {/* Body */}

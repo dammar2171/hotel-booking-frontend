@@ -1,12 +1,13 @@
 export interface Room {
   id:           number;
-  name:         string;
+  room_number: string;
   price:        number;
-  rating:       number;
+  type:string;
+  rating:       number | null;
   is_available: boolean;
   description:string;
   amenities:string[];
-  image:string;
+  image_url:string;
 }
 
 export interface Guest {
@@ -39,16 +40,17 @@ export interface ApiResponse<T> {
   data:    T;
 }
 
+export interface Pagination{
+  currentPage: number;
+  totalPages:  number;
+  totalItems:  number;
+  limit:       number;
+}
 export interface PaginatedResponse<T> {
   success: boolean;
   message: string;
   data:    T[];
-  pagination: {
-    currentPage: number;
-    totalPages:  number;
-    totalItems:  number;
-    limit:       number;
-  };
+  pagination: Pagination;
 }
 
 export interface Stats {

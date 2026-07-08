@@ -3,18 +3,8 @@ import api from "../../api/axios";
 import { useToast } from "../../contexts/ToastContext";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import MiniCard from "../../components/ui/MiniCard";
-
-interface Room {
-  id:           number;
-  room_number:  string;
-  type:         string;
-  price:        number;
-  is_available: boolean;
-  description:  string;
-  image_url:    string;
-  rating:       string;
-  amenities:    string[]; 
-}
+import type { Room } from "../../types";
+import { useRoom } from "../../contexts/RoomContext";
 
 interface RoomForm {
   room_number:  string;
@@ -42,8 +32,6 @@ const roomTypes = ["standard", "deluxe", "suite", "family", "penthouse"];
 
 export default function ManageRooms() {
   const { addToast }                    = useToast();
-  const [rooms,      setRooms]          = useState<Room[]>([]);
-  const [loading,    setLoading]        = useState(true);
   const [submitting, setSubmitting]     = useState(false);
   const [showModal,  setShowModal]      = useState(false);
   const [editRoom,   setEditRoom]       = useState<Room | null>(null);
@@ -52,18 +40,7 @@ export default function ManageRooms() {
   const [search,     setSearch]         = useState("");
   const [filterType, setFilterType]     = useState("all");
 
-  // ── Fetch rooms ──────────────────────────
-  const fetchRooms = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get("/rooms?limit=100");
-      setRooms(res.data.data);
-    } catch {
-      addToast("Failed to load rooms", "error");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {rooms,error,loading,fetchRooms,fetchRoomById,deleteRoom,updateRoom,createRoom,selectedRoom} = useRoom();
 
   useEffect(() => { fetchRooms(); }, []);
 
@@ -115,25 +92,32 @@ export default function ManageRooms() {
     }
     setSubmitting(true);
     try {
-      const payload = {
+  const payload = {
   room_number:  form.room_number,
   type:         form.type,
   price:        Number(form.price),
   is_available: form.is_available,
-  description:  form.description  || undefined,
-  image_url:    form.image_url    || undefined,
-  rating:       form.rating ? Number(form.rating) : undefined,
+  description:  form.description  || "",
+  image_url:    form.image_url    || "",
+  rating:       form.rating ? Number(form.rating) : null,
   amenities:    form.amenities
     ? form.amenities.split(",").map((a) => a.trim()).filter(Boolean)
-    : undefined,
+    : [],
 };
-
       if (editRoom) {
-        await api.put(`/rooms/${editRoom.id}`, payload);
-        addToast("Room updated successfully!", "success");
+        const success = await updateRoom(editRoom.id,payload)
+        if(success){
+          addToast("Room updated successfully!", "success");
+        }else{
+          addToast(error ?? "Update failed!","error");
+        }
       } else {
-        await api.post("/rooms", payload);
-        addToast("Room created successfully!", "success");
+        const success = await createRoom(payload);
+        if(success){
+          addToast("Room created successfully!", "success");
+        }else{
+          addToast(error ??"Problem in creating room",'error');
+        }
       }
 
       closeModal();
@@ -151,10 +135,14 @@ export default function ManageRooms() {
   // ── Delete ───────────────────────────────
   const handleDelete = async (id: number) => {
     try {
-      await api.delete(`/rooms/${id}`);
-      addToast("Room deleted successfully!", "success");
-      setDeleteId(null);
-      fetchRooms();
+      const success = await deleteRoom(id);
+      if(success){
+        addToast("Room deleted successfully!", "success");
+        setDeleteId(null);
+        fetchRooms();
+      }else{
+        addToast(error ?? "Problem in deletion!","error");
+      }
     } catch (err: any) {
       addToast(
         err?.response?.data?.message || "Delete failed",

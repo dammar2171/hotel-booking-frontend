@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import api from "../../api/axios";
 import { useToast } from "../../contexts/ToastContext";
 import LoadingSpinner from "../../components/ui/LoadingSpinner";
 import MiniCard from "../../components/ui/MiniCard";
@@ -40,7 +39,9 @@ export default function ManageRooms() {
   const [search,     setSearch]         = useState("");
   const [filterType, setFilterType]     = useState("all");
 
-  const {rooms,error,loading,fetchRooms,fetchRoomById,deleteRoom,updateRoom,createRoom,selectedRoom} = useRoom();
+  const {rooms,error,loading,fetchRooms,deleteRoom,updateRoom,createRoom} = useRoom();
+  console.log("MANAGE_ROOMS:",rooms);
+  
 
   useEffect(() => { fetchRooms(); }, []);
 

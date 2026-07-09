@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import type { Room } from "../types";
 
 interface RoomCardProps {
-  room: Room;
+  room: Room ;
 }
 
 const RoomCard = ({ room }: RoomCardProps) => {
@@ -17,18 +17,32 @@ const RoomCard = ({ room }: RoomCardProps) => {
         }}
       >
         {/* Image */}
-        <div
-          style={{
-            height: "220px",
-            background: "var(--color-bg-tertiary)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "5rem",
-          }}
-        >
-          {room.image_url}
-        </div>
+        <div style={{ height: "220px", overflow: "hidden" }}>
+          {room.image_url ? (
+            <img
+              src={room.image_url}
+              alt={room.type}
+              style={{
+                width:      "100%",
+                height:     "100%",
+                objectFit:  "cover",
+              }}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+          ) : (
+            <div style={{
+              height:         "100%",
+              display:        "flex",
+              alignItems:     "center",
+              justifyContent: "center",
+              fontSize:       "4rem",
+            }}>
+              🛏️
+            </div>
+          )}
+      </div>
 
         {/* Body */}
         <div
@@ -49,7 +63,7 @@ const RoomCard = ({ room }: RoomCardProps) => {
                 fontWeight: 600,
               }}
             >
-              ⭐ {room.rating}
+              ⭐ {room.rating ?? "N/A"}
             </span>
 
             {room.is_available ? (
@@ -63,7 +77,7 @@ const RoomCard = ({ room }: RoomCardProps) => {
             )}
           </div>
 
-          {/* Name */}
+          {/* Type */}
 
           <h4
             style={{
@@ -71,7 +85,7 @@ const RoomCard = ({ room }: RoomCardProps) => {
               fontWeight: 700,
             }}
           >
-            {room.name}
+            {room.type}
           </h4>
 
           {/* Description */}
@@ -103,7 +117,7 @@ const RoomCard = ({ room }: RoomCardProps) => {
                 marginBottom: 0,
               }}
             >
-              {room.amenities.map((item) => (
+              {room.amenities?.map((item) => (
                 <li
                   key={item}
                   style={{

@@ -62,9 +62,11 @@ const FilterSection: React.FC<FilterSectionProps> = ({
                 onChange={(e) => onRoomTypeChange(e.target.value)}
               >
                 <option value="">All</option>
+                <option value="Suite">PentHouse</option>
+                <option value="Suite">Suite</option>
                 <option value="Standard">Standard</option>
                 <option value="Deluxe">Deluxe</option>
-                <option value="Suite">Suite</option>
+                <option value="Suite">Family</option>
               </select>
             </div>
 

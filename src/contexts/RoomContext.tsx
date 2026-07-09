@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useReducer, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useReducer} from "react";
 import type { Pagination, Room } from "../types";
 import api from "../api/axios";
 
@@ -158,7 +158,7 @@ export function RoomProvider({children}:{children:React.ReactNode}){
 
   const deleteRoom = useCallback(async(id:number)=>{
     try {
-      const res = await api.delete(`/rooms/${id}`);
+      await api.delete(`/rooms/${id}`);
       dispatch({type:"DELETE_ROOM",payload:id});
       return true;
     } catch (error:any) {

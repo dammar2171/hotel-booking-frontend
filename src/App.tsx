@@ -20,7 +20,7 @@ import Settings from './pages/Admin/Settings';
 import Profile from './pages/Profile';
 import Setting from './pages/Setting';
 import MyBookings from './pages/MyBooking';
-import Room from './pages/Room';
+import Room from './pages/RoomPage';
 import { RoomProvider } from './contexts/RoomContext';
 
 

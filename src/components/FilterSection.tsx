@@ -5,12 +5,10 @@ interface FilterSectionProps {
   roomType: string;
   availability: string;
   priceRange: string;
-
   onSearchChange: (value: string) => void;
   onRoomTypeChange: (value: string) => void;
   onAvailabilityChange: (value: string) => void;
   onPriceRangeChange: (value: string) => void;
-
   onReset: () => void;
 }
 
@@ -99,10 +97,10 @@ const FilterSection: React.FC<FilterSectionProps> = ({
                 onChange={(e) => onPriceRangeChange(e.target.value)}
               >
                 <option value="">All Prices</option>
-                <option value="0-3000">NPR 0 - 3,000</option>
-                <option value="3001-6000">NPR 3,001 - 6,000</option>
-                <option value="6001-10000">NPR 6,001 - 10,000</option>
-                <option value="10001">Above NPR 10,000</option>
+                <option value="Low">Low: 1000 - 5000</option>
+                <option value="Medium">Medium: 6000 - 10000 </option>
+                <option value="High">High: 10000 - 50000</option>
+                <option value="ultraHigh">Ultra High: above 50000</option>
               </select>
             </div>
 

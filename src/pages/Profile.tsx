@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { useTheme } from "../contexts/ThemeContext";
 
 export default function Profile() {
   const { user, logout }       = useAuth();
-  const { theme }              = useTheme();
   const navigate               = useNavigate();
 
   const handleLogout = () => {
@@ -228,7 +226,6 @@ export default function Profile() {
 
           {/* ── Right — Tabs ─────────────────── */}
           <div className="col-lg-8">
-
             {/* Booking section*/}
             <div style={{
               display:      "flex",
@@ -280,7 +277,7 @@ export default function Profile() {
                     Go to My Bookings page to see all your reservations
                   </p>
                   <button
-                    onClick={() => navigate("/bookings")}
+                    onClick={() => navigate("/my-bookings")}
                     style={{
                       background:   "var(--color-accent)",
                       border:       "none",
@@ -295,7 +292,6 @@ export default function Profile() {
                     Go to My Bookings →
                   </button>
                 </div>
-
           </div>
         </div>
       </div>

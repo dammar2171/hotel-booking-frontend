@@ -25,21 +25,23 @@ useEffect(()=>{fetchRooms();},[fetchRooms]);
 const filtered = rooms.filter((room) => {
   const matchSearch = room.type.toLowerCase().includes(search.toLowerCase()) ||
     room.room_number.toLowerCase().includes(search.toLowerCase());
-  const matchType   = roomType === "" || room.type === roomType;
+  const matchType   = roomType === "" || room.type.toLowerCase() === roomType.toLowerCase();
   const matchAvail  = availability === ""
     || (availability === "available" && room.is_available)
     || (availability === "booked"    && !room.is_available);
-  const matchPrice  = priceRange === ""
-    || (priceRange === "low"    && room.price <= 3000)
-    || (priceRange === "medium" && room.price > 3000 && room.price <= 8000)
-    || (priceRange === "high"   && room.price > 8000);
+  const matchPrice =
+  priceRange === "" ||
+  (priceRange === "Low" && room.price <= 5000) ||
+  (priceRange === "Medium" &&
+    room.price > 5000 &&
+    room.price <= 10000) ||
+  (priceRange === "High" &&
+    room.price > 10000 &&
+    room.price <= 50000) ||
+  (priceRange === "ultraHigh" &&
+    room.price > 50000);
   return matchSearch && matchType && matchAvail && matchPrice;
 });
-
-{filtered.map((room) => (
-  <RoomCard key={room.id} room={room} />
-))}
-
   return (
     <>
       <Navbar/>
@@ -66,7 +68,7 @@ const filtered = rooms.filter((room) => {
   <div className="row g-4">
     {filtered.length === 0 ? <div className="empty-state">
             <div style={{ fontSize: "3rem" }}>🛏️</div>
-            <h4>No rooms found</h4></div> : rooms.map((room) => (
+            <h4>No rooms found</h4></div> : filtered.map((room) => (
       <RoomCard key={room.id} room={room} />
     ))}
   </div>

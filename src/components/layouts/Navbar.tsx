@@ -420,7 +420,7 @@ export default function Navbar() {
               { label: "About Us",    path: "/about" },
               { label: "Contact",     path: "/contact" },
               ...(isLogged
-                ? [{ label: "My Bookings", path: "/bookings" }]
+                ? [{ label: "My Bookings", path: "/my-bookings" }]
                 : []),
               ...(isAdmin
                 ? [{ label: "Dashboard", path: "/dashboard" }]

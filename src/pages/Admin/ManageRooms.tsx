@@ -39,9 +39,7 @@ export default function ManageRooms() {
   const [search,     setSearch]         = useState("");
   const [filterType, setFilterType]     = useState("all");
 
-  const {rooms,error,loading,fetchRooms,deleteRoom,updateRoom,createRoom} = useRoom();
-  console.log("MANAGE_ROOMS:",rooms);
-  
+  const {rooms,error,loading,fetchRooms,deleteRoom,updateRoom,createRoom} = useRoom(); 
 
   useEffect(() => { fetchRooms(); }, []);
 

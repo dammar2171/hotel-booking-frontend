@@ -32,7 +32,7 @@ const typeStyles: Record<Type, { bg: string; color: string; border: string }> = 
   },
 };
 
-function Toast({ id, message, type = "info", onClose }: ToastProps) {
+function Toast({ id, message="something went wrong!", type = "info", onClose }: ToastProps) {
   const styles = typeStyles[type];
 
   return (

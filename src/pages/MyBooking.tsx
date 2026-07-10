@@ -4,6 +4,7 @@ import api from "../api/axios";
 import { useAuth } from "../contexts/AuthContext";
 import { useToast } from "../contexts/ToastContext";
 import MiniCard from "../components/ui/MiniCard";
+import LoadingSpinner from "../components/ui/LoadingSpinner";
 
 interface Summary{
     label:string;
@@ -55,20 +56,23 @@ export default function MyBookings() {
   const { user }             = useAuth();
   const { addToast }         = useToast();
   const navigate             = useNavigate();
-
   const [bookings,     setBookings]     = useState<Booking[]>([]);
   const [rooms,        setRooms]        = useState<Room[]>([]);
   const [loading,      setLoading]      = useState(true);
   const [cancelId,     setCancelId]     = useState<number | null>(null);
   const [filterStatus, setFilterStatus] = useState<"all" | "confirmed" | "cancelled" | "pending">("all");
   const [activeView,   setActiveView]   = useState<"grid" | "table">("grid");
-
+  
   // ── Fetch bookings ───────────────────────
   const fetchData = async () => {
     try {
       setLoading(true);
+
+      const guestRes = await api.get(`/guests/user/${user?.id}`);
+      const guest_id = guestRes.data.data.id;
+
       const [bookRes, roomRes] = await Promise.all([
-        api.get(`/bookings/guest/${user?.id}`),
+        api.get(`/bookings/guest/${guest_id}`),
         api.get("/rooms?limit=100"),
       ]);
       setBookings(bookRes.data.data ?? []);
@@ -122,7 +126,6 @@ export default function MyBookings() {
   // ── Summary counts ───────────────────────
   const confirmed = bookings.filter((b) => b.status === "confirmed").length;
   const cancelled = bookings.filter((b) => b.status === "cancelled").length;
-  const pending   = bookings.filter((b) => b.status === "pending").length;
   const totalSpent = Number(
   bookings
     .filter((b) => b.status === "confirmed")
@@ -234,7 +237,7 @@ export default function MyBookings() {
         }}>
           {/* Status filter pills */}
           <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-            {(["all", "confirmed", "cancelled", "pending"] as const).map((s) => (
+            {(["all", "confirmed", "cancelled"] as const).map((s) => (
               <button
                 key={s}
                 onClick={() => setFilterStatus(s)}
@@ -300,13 +303,7 @@ export default function MyBookings() {
 
         {/* ── Loading ───────────────────────── */}
         {loading && (
-          <div className="loading-wrapper">
-            <div
-              className="spinner-border"
-              style={{ color: "var(--color-accent)", width: "2.5rem", height: "2.5rem" }}
-              role="status"
-            />
-          </div>
+          <LoadingSpinner/>
         )}
 
         {/* ── Empty State ───────────────────── */}

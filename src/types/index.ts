@@ -25,6 +25,9 @@ export interface Booking {
   check_out:   string;
   total_price: number;
   status: "confirmed" | "cancelled" | "pending";
+  guests:number;
+  paymentMethod:string;
+  specialRequests:string | null;
 }
 
 export interface User {

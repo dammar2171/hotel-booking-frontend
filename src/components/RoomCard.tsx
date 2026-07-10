@@ -176,7 +176,6 @@ const RoomCard = ({ room }: RoomCardProps) => {
             >
               {room.is_available ? "Book Now" : "Booked"}
             </button>
-
           </div>
         </div>
       </div>

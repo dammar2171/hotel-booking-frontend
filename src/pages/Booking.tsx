@@ -7,6 +7,8 @@ import BookingForm from '../components/BookingForm'
 import BookingSummary from '../components/BookingSummary'
 import { useState } from 'react'
 import type { BookingData } from '../types'
+import { useRoom } from '../contexts/RoomContext'
+import { useParams } from 'react-router'
 const dataHero ={
   title: "Book Your Stay",
   heading: "Complete Your Reservation",
@@ -32,21 +34,11 @@ function Booking() {
   specialRequest: "",
 });
 
-const selectedRoom = {
-  id: 2,
-  name: "Deluxe Room",
-  price: 4500,
-  rating: 4.8,
-  is_available: true,
-  description: "Luxury room with city view.",
-  amenities: [
-    "Free WiFi",
-    "Breakfast",
-    "Mini Bar",
-    "Balcony",
-  ],
-  image: "✨",
-};
+  const {rooms} = useRoom();
+  const {id} = useParams();
+
+  const selectedRoom = rooms.find((room)=> room.id === Number(id));
+  if(!selectedRoom) return <p>No room founds!</p>
   return (
     <>
     <Navbar/>
@@ -64,7 +56,7 @@ const selectedRoom = {
     </div>
 
     <div className="col-lg-4">
-      <BookingSummary room={selectedRoom}
+      <BookingSummary room={selectedRoom as any}
      bookingData={bookingData}/>
     </div>
 

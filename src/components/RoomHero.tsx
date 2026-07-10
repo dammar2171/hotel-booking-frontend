@@ -1,15 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
-interface Room {
-  id: number;
-  name: string;
-  price: number;
-  rating: number;
-  is_available: boolean;
-  description: string;
-  amenities: string[];
-  image: string;
-}
+import type { Room } from "../types";
 
 interface RoomHeroProps {
   room: Room;
@@ -34,19 +24,33 @@ export default function RoomHero({ room }: RoomHeroProps) {
 
           <div className="col-lg-6">
 
-            <div
-              className="custom-card"
+            {/* Image */}
+        <div style={{ height: "320px", overflow: "hidden" }}>
+          {room.image_url ? (
+            <img
+              src={room.image_url}
+              alt={room.type}
               style={{
-                background: "var(--color-bg-tertiary)",
-                height: "420px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "8rem",
+                width:      "100%",
+                height:     "100%",
+                objectFit:  "cover",
               }}
-            >
-              {room.image}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+          ) : (
+            <div style={{
+              height:         "100%",
+              display:        "flex",
+              alignItems:     "center",
+              justifyContent: "center",
+              fontSize:       "4rem",
+            }}>
+              🛏️
             </div>
+          )}
+      </div>
 
           </div>
 
@@ -89,7 +93,7 @@ export default function RoomHero({ room }: RoomHeroProps) {
                 marginBottom: "18px",
               }}
             >
-              {room.name}
+              {room.type}
             </h1>
 
             {/* Description */}
@@ -166,11 +170,8 @@ export default function RoomHero({ room }: RoomHeroProps) {
               </div>
 <div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>{room.amenities.map((item)=>(<span style={{padding:"6px 12px"}}>✅{item}</span>))}</div>
             </div>
-
             {/* Buttons */}
-
             <div className="d-flex gap-3 flex-wrap">
-
               <button
                 className="btn-accent"
                 disabled={!room.is_available}
@@ -178,20 +179,15 @@ export default function RoomHero({ room }: RoomHeroProps) {
               >
                 {room.is_available ? "Book Now" : "Currently Booked"}
               </button>
-
               <button
                 className="btn-ghost"
                 onClick={() => navigate("/rooms")}
               >
                 ← Back to Rooms
               </button>
-
             </div>
-
           </div>
-
         </div>
-
       </div>
     </section>
   );

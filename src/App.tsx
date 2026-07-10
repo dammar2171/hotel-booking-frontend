@@ -44,8 +44,8 @@ const AppRoutes=()=>{
                   <Route path='/about' element={<About/>}></Route>
                   <Route path='/contact' element={<Contact/>}></Route>
                   <Route path='/rooms' element={<Room/>}></Route>
-                  <Route path='/rooms/roomDetails' element={<RoomDetail/>}></Route>
-                  <Route path='/booking' element={<Booking/>}></Route>
+                  <Route path='/rooms/:id' element={<RoomDetail/>}></Route>
+                  <Route path='/booking/:id' element={<Booking/>}></Route>
                   <Route path='/profile' element={<Profile/>}></Route>
                   <Route path='/settings' element={<Setting/>}></Route>
                   <Route path='/my-bookings' element={<MyBookings/>}></Route>

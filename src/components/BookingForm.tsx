@@ -1,6 +1,9 @@
 import { useState } from "react";
 import type { BookingData } from "../types";
 import { useToast } from "../contexts/ToastContext";
+import api from "../api/axios";
+import { useNavigate, useParams } from "react-router";
+import { useAuth } from "../contexts/AuthContext";
 
 interface BookingFormProps {
   bookingData: BookingData;
@@ -8,28 +11,52 @@ interface BookingFormProps {
 }
 
 export default function BookingForm({bookingData,setBookingData}:BookingFormProps) {
-  const {addToast} =useToast();
+  const {addToast} = useToast();
+  const { id } = useParams();
+  const room_id = Number(id);
+  const {user} = useAuth();
+  const navigate = useNavigate();
+
   const handleChange = (
-  e: React.ChangeEvent<
-    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-  >
-) => {
-  const { name, value } = e.target;
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
 
-  setBookingData((prev) => ({
-    ...prev,
-    [name]: name === "guests" ? Number(value) : value,
-  }));
-};
+    setBookingData((prev) => ({
+      ...prev,
+      [name]: name === "guests" ? Number(value) : value,
+    }));
+  };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      const guestRes = await api.get(`/guests/user/${user?.id}`);
+      const guest = guestRes.data.data;
 
-    console.log(bookingData);
+      if(!guest.phone || guest.phone !== bookingData.phone){
+        await api.put(`/guests/${guest.id}`,{phone:bookingData.phone});
+      }
 
-    addToast("Room booked successfully!","success");
-    // Later:
-    // axios.post("/api/bookings", bookingData);
+      const response = await api.post("/bookings",{
+        guest_id:guest.id,
+        room_id,
+        check_in:bookingData.checkIn,
+        check_out:bookingData.checkOut,
+        guests:bookingData.guests,
+        paymentMethod:bookingData.paymentMethod,
+        specialRequest:bookingData.specialRequest,
+      })
+      
+      if(response.data.success){
+        addToast("Booking confirmed!","success");
+        navigate("/my-bookings");
+      }
+    } catch (error) {
+      addToast("Booking failed!","error");
+    }
   };
 
   return (
@@ -60,9 +87,8 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
             name="fullName"
             className="custom-input"
             placeholder="John Doe"
-            value={bookingData.fullName}
-            onChange={handleChange}
-            required
+            value={user?.name}
+            readOnly
           />
 
         </div>
@@ -80,9 +106,8 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
             name="email"
             className="custom-input"
             placeholder="john@example.com"
-            value={bookingData.email}
-            onChange={handleChange}
-            required
+            value={user?.email}
+            readOnly
           />
 
         </div>

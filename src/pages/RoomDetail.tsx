@@ -1,33 +1,25 @@
 import Navbar from '../components/layouts/Navbar'
 import Footer from '../components/layouts/Footer'
 import BreadCrumb from '../components/ui/BreadCrumb'
-import HeroSection from '../components/HeroSection'
 import RoomHero from '../components/RoomHero'
-import type { Room } from '../types'
 import CtaCard from '../components/CtaCard'
-const dataHero ={
-  title:"Our Rooms",
-  heading:"Find your perfect stay",
-  description:"Browse our collection of comfortable and luxurious rooms, thoughtfully designed to suit every traveler. Whether you're here for business or leisure, we have the perfect room for you."
-}
+import { useRoom } from '../contexts/RoomContext'
+import { useParams } from 'react-router'
 const ctaData = {
   title: "Book Your Stay",
   heading: "Ready to Experience Comfort and Luxury?",
   description:
     "Reserve your room today and enjoy premium amenities, exceptional hospitality, and an unforgettable stay at the best available rates.",
 };
-const rooms: Room = {
-    id: 1,
-    name: "Standard Room",
-    price: 2000,
-    rating: 4.3,
-    is_available: true,
-    description:
-      "A cozy room ideal for solo travelers and short business trips.",
-    amenities: ["Free WiFi", "Air Conditioning", "Smart TV", "Breakfast"],
-    image: "🏠",
-  }
+
 function RoomDetail() {
+  const {rooms} = useRoom();
+  const {id} = useParams();
+
+  const selectedRoom = rooms.find((room)=> room.id === Number(id));
+  
+  if (!selectedRoom) return <div>Room not found</div>;
+  
   return (
     <>
       <Navbar/>
@@ -35,7 +27,7 @@ function RoomDetail() {
         <div className="container" >
         <BreadCrumb currentPage='bookDetails'/>
       </div> 
-      <RoomHero room={rooms}/>
+      <RoomHero room={selectedRoom as any}/>
       <div className="container pb-5" style={{background: "var(--color-bg-primary)"}}>
         <CtaCard ctaData={ctaData}/>
       </div>

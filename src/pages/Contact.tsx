@@ -4,6 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import CtaCard from '../components/CtaCard';
 import HeroSection from '../components/HeroSection';
+import { useState, type FormEvent } from 'react';
+import type { Contact } from '../types';
+import api from '../api/axios';
+import { useToast } from '../contexts/ToastContext';
 
 const ctaData = {
   title: 'Ready to book your stay?',
@@ -66,6 +70,40 @@ const dataHero = {
 
 export default function Contact() {
   const navigate = useNavigate();
+  const { addToast } = useToast();
+  const [formData, setFormData] = useState<Contact>({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await api.post('/contacts', formData);
+      if (res.data.success) {
+        addToast(res?.data?.message || 'message sent!', 'success');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: '',
+        });
+      }
+    } catch (error) {
+      addToast('Message failed', 'error');
+    }
+  };
 
   return (
     <>
@@ -103,36 +141,59 @@ export default function Contact() {
               <div className="col-lg-7">
                 <div className="custom-card p-4">
                   <h3 className="mb-4">Send Message</h3>
-                  <div className="row">
-                    <div className="col-md-6 mb-3">
-                      <input className="custom-input" placeholder="Full Name" />
+                  <form onSubmit={handleSubmit}>
+                    <div className="row">
+                      <div className="col-md-6 mb-3">
+                        <input
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="custom-input"
+                          placeholder="Full Name"
+                        />
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <input
+                          className="custom-input"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          placeholder="Email Address"
+                        />
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <input
+                          className="custom-input"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          placeholder="Phone Number"
+                        />
+                      </div>
+                      <div className="col-md-6 mb-3">
+                        <input
+                          className="custom-input"
+                          name="subject"
+                          value={formData.subject}
+                          onChange={handleChange}
+                          placeholder="Subject"
+                        />
+                      </div>
+                      <div className="col-12 mb-3">
+                        <textarea
+                          rows={6}
+                          name="message"
+                          value={formData.message}
+                          onChange={handleChange}
+                          className="custom-input"
+                          placeholder="Write your message..."
+                        />
+                      </div>
+                      <div className="col-12">
+                        <button className="btn-accent">Send Message</button>
+                      </div>
                     </div>
-                    <div className="col-md-6 mb-3">
-                      <input
-                        className="custom-input"
-                        placeholder="Email Address"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <input
-                        className="custom-input"
-                        placeholder="Phone Number"
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <input className="custom-input" placeholder="Subject" />
-                    </div>
-                    <div className="col-12 mb-3">
-                      <textarea
-                        rows={6}
-                        className="custom-input"
-                        placeholder="Write your message..."
-                      />
-                    </div>
-                    <div className="col-12">
-                      <button className="btn-accent">Send Message</button>
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>

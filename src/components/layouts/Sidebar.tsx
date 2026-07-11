@@ -13,6 +13,7 @@ const navItems: NavItem[] = [
   { icon: '🛏️', label: 'Manage Rooms', path: '/dashboard/rooms' },
   { icon: '👥', label: 'Manage Guests', path: '/dashboard/guests' },
   { icon: '📋', label: 'Manage Bookings', path: '/dashboard/bookings' },
+  { icon: '💬', label: 'Manage Contacts', path: '/dashboard/contacts' },
   { icon: '📈', label: 'Stats', path: '/dashboard/stats' },
   { icon: '⚙️', label: 'Settings', path: '/dashboard/settings' },
 ];

@@ -22,6 +22,7 @@ import Setting from './pages/Setting';
 import MyBookings from './pages/MyBooking';
 import Room from './pages/RoomPage';
 import { RoomProvider } from './contexts/RoomContext';
+import ManageContacts from './pages/Admin/ManageContacts';
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const { isLogged } = useAuth();
@@ -61,6 +62,7 @@ const AppRoutes = () => {
           <Route path="rooms" element={<ManageRooms />}></Route>
           <Route path="guests" element={<ManageGuests />}></Route>
           <Route path="bookings" element={<ManageBookings />}></Route>
+          <Route path="contacts" element={<ManageContacts />}></Route>
           <Route path="stats" element={<StatsPage />}></Route>
           <Route path="settings" element={<Settings />}></Route>
         </Route>

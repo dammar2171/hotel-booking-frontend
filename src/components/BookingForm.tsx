@@ -1,20 +1,23 @@
-import { useState } from "react";
-import type { BookingData } from "../types";
-import { useToast } from "../contexts/ToastContext";
-import api from "../api/axios";
-import { useNavigate, useParams } from "react-router";
-import { useAuth } from "../contexts/AuthContext";
+import { useState } from 'react';
+import type { BookingData } from '../types';
+import { useToast } from '../contexts/ToastContext';
+import api from '../api/axios';
+import { useNavigate, useParams } from 'react-router';
+import { useAuth } from '../contexts/AuthContext';
 
 interface BookingFormProps {
   bookingData: BookingData;
   setBookingData: React.Dispatch<React.SetStateAction<BookingData>>;
 }
 
-export default function BookingForm({bookingData,setBookingData}:BookingFormProps) {
-  const {addToast} = useToast();
+export default function BookingForm({
+  bookingData,
+  setBookingData,
+}: BookingFormProps) {
+  const { addToast } = useToast();
   const { id } = useParams();
   const room_id = Number(id);
-  const {user} = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (
@@ -26,61 +29,56 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
 
     setBookingData((prev) => ({
       ...prev,
-      [name]: name === "guests" ? Number(value) : value,
+      [name]: name === 'guests' ? Number(value) : value,
     }));
   };
 
-  const handleSubmit = async(e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const guestRes = await api.get(`/guests/user/${user?.id}`);
       const guest = guestRes.data.data;
 
-      if(!guest.phone || guest.phone !== bookingData.phone){
-        await api.put(`/guests/${guest.id}`,{phone:bookingData.phone});
+      if (!guest.phone || guest.phone !== bookingData.phone) {
+        await api.put(`/guests/${guest.id}`, { phone: bookingData.phone });
       }
 
-      const response = await api.post("/bookings",{
-        guest_id:guest.id,
+      const response = await api.post('/bookings', {
+        guest_id: guest.id,
         room_id,
-        check_in:bookingData.checkIn,
-        check_out:bookingData.checkOut,
-        guests:bookingData.guests,
-        paymentMethod:bookingData.paymentMethod,
-        specialRequest:bookingData.specialRequest,
-      })
-      
-      if(response.data.success){
-        addToast("Booking confirmed!","success");
-        navigate("/my-bookings");
+        check_in: bookingData.checkIn,
+        check_out: bookingData.checkOut,
+        guests: bookingData.guests,
+        paymentMethod: bookingData.paymentMethod,
+        specialRequest: bookingData.specialRequest,
+      });
+
+      if (response.data.success) {
+        addToast('Booking confirmed!', 'success');
+        navigate('/my-bookings');
       }
     } catch (error) {
-      addToast("Booking failed!","error");
+      addToast('Booking failed!', 'error');
     }
   };
 
   return (
     <div className="custom-card p-4">
-
       <h3
         style={{
-          color: "var(--color-text-primary)",
+          color: 'var(--color-text-primary)',
           fontWeight: 700,
-          marginBottom: "1.5rem",
+          marginBottom: '1.5rem',
         }}
       >
         Guest Information
       </h3>
 
       <form onSubmit={handleSubmit}>
-
         {/* Full Name */}
 
         <div className="mb-3">
-
-          <label className="form-label fw-semibold">
-            Full Name
-          </label>
+          <label className="form-label fw-semibold">Full Name</label>
 
           <input
             type="text"
@@ -90,16 +88,12 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
             value={user?.name}
             readOnly
           />
-
         </div>
 
         {/* Email */}
 
         <div className="mb-3">
-
-          <label className="form-label fw-semibold">
-            Email Address
-          </label>
+          <label className="form-label fw-semibold">Email Address</label>
 
           <input
             type="email"
@@ -109,16 +103,12 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
             value={user?.email}
             readOnly
           />
-
         </div>
 
         {/* Phone */}
 
         <div className="mb-3">
-
-          <label className="form-label fw-semibold">
-            Phone Number
-          </label>
+          <label className="form-label fw-semibold">Phone Number</label>
 
           <input
             type="tel"
@@ -129,18 +119,13 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
             onChange={handleChange}
             required
           />
-
         </div>
 
         {/* Dates */}
 
         <div className="row">
-
           <div className="col-md-6 mb-3">
-
-            <label className="form-label fw-semibold">
-              Check-in
-            </label>
+            <label className="form-label fw-semibold">Check-in</label>
 
             <input
               type="date"
@@ -150,14 +135,10 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
               onChange={handleChange}
               required
             />
-
           </div>
 
           <div className="col-md-6 mb-3">
-
-            <label className="form-label fw-semibold">
-              Check-out
-            </label>
+            <label className="form-label fw-semibold">Check-out</label>
 
             <input
               type="date"
@@ -167,18 +148,13 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
               onChange={handleChange}
               required
             />
-
           </div>
-
         </div>
 
         {/* Guests */}
 
         <div className="mb-3">
-
-          <label className="form-label fw-semibold">
-            Number of Guests
-          </label>
+          <label className="form-label fw-semibold">Number of Guests</label>
 
           <select
             name="guests"
@@ -192,60 +168,46 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
             <option value={4}>4 Guests</option>
             <option value={5}>5 Guests</option>
           </select>
-
         </div>
 
         {/* Payment */}
 
         <div className="mb-4">
-
           <label className="form-label fw-semibold d-block">
             Payment Method
           </label>
 
           <div className="form-check">
-
             <input
               className="form-check-input"
               type="radio"
               name="paymentMethod"
               value="hotel"
-              checked={bookingData.paymentMethod === "hotel"}
+              checked={bookingData.paymentMethod === 'hotel'}
               onChange={handleChange}
             />
 
-            <label className="form-check-label">
-              Pay at Hotel
-            </label>
-
+            <label className="form-check-label">Pay at Hotel</label>
           </div>
 
           <div className="form-check">
-
             <input
               className="form-check-input"
               type="radio"
               name="paymentMethod"
               value="online"
-              checked={bookingData.paymentMethod === "online"}
+              checked={bookingData.paymentMethod === 'online'}
               onChange={handleChange}
             />
 
-            <label className="form-check-label">
-              Online Payment
-            </label>
-
+            <label className="form-check-label">Online Payment</label>
           </div>
-
         </div>
 
         {/* Special Request */}
 
         <div className="mb-4">
-
-          <label className="form-label fw-semibold">
-            Special Requests
-          </label>
+          <label className="form-label fw-semibold">Special Requests</label>
 
           <textarea
             rows={5}
@@ -255,20 +217,14 @@ export default function BookingForm({bookingData,setBookingData}:BookingFormProp
             value={bookingData.specialRequest}
             onChange={handleChange}
           />
-
         </div>
 
         {/* Button */}
 
-        <button
-          type="submit"
-          className="btn-accent w-100"
-        >
+        <button type="submit" className="btn-accent w-100">
           Confirm Booking
         </button>
-
       </form>
-
     </div>
   );
 }

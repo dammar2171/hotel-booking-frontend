@@ -1,4 +1,4 @@
-import type { BookingData } from "../types";
+import type { BookingData } from '../types';
 
 interface Room {
   id: number;
@@ -13,7 +13,7 @@ interface Room {
 
 interface BookingSummaryProps {
   room: Room;
-  bookingData:BookingData
+  bookingData: BookingData;
 }
 
 export default function BookingSummary({
@@ -39,18 +39,18 @@ export default function BookingSummary({
     <div
       className="custom-card"
       style={{
-        padding: "24px",
-        position: "sticky",
-        top: "100px",
+        padding: '24px',
+        position: 'sticky',
+        top: '100px',
       }}
     >
       {/* Heading */}
 
       <h3
         style={{
-          color: "var(--color-text-primary)",
+          color: 'var(--color-text-primary)',
           fontWeight: 700,
-          marginBottom: "24px",
+          marginBottom: '24px',
         }}
       >
         Booking Summary
@@ -60,32 +60,31 @@ export default function BookingSummary({
 
       <div
         style={{
-          display: "flex",
-          gap: "16px",
-          marginBottom: "20px",
+          display: 'flex',
+          gap: '16px',
+          marginBottom: '20px',
         }}
       >
         <div
           style={{
-            width: "90px",
-            height: "90px",
-            background: "var(--color-bg-tertiary)",
-            borderRadius: "12px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "3rem",
+            width: '90px',
+            height: '90px',
+            background: 'var(--color-bg-tertiary)',
+            borderRadius: '12px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: '3rem',
           }}
         >
           {room.image}
         </div>
 
         <div>
-
           <h5
             style={{
-              color: "var(--color-text-primary)",
-              marginBottom: "8px",
+              color: 'var(--color-text-primary)',
+              marginBottom: '8px',
             }}
           >
             {room.name}
@@ -93,8 +92,8 @@ export default function BookingSummary({
 
           <p
             style={{
-              marginBottom: "4px",
-              color: "#f59e0b",
+              marginBottom: '4px',
+              color: '#f59e0b',
             }}
           >
             ⭐ {room.rating}
@@ -102,13 +101,12 @@ export default function BookingSummary({
 
           <p
             style={{
-              color: "var(--color-accent)",
+              color: 'var(--color-accent)',
               fontWeight: 700,
             }}
           >
             NPR {room.price.toLocaleString()} / night
           </p>
-
         </div>
       </div>
 
@@ -118,12 +116,12 @@ export default function BookingSummary({
 
       <div className="d-flex justify-content-between mb-3">
         <span>Check-in</span>
-        <strong>{bookingData.checkIn || "--/--/----"}</strong>
+        <strong>{bookingData.checkIn || '--/--/----'}</strong>
       </div>
 
       <div className="d-flex justify-content-between mb-3">
         <span>Check-out</span>
-        <strong>{bookingData.checkOut || "--/--/----"}</strong>
+        <strong>{bookingData.checkOut || '--/--/----'}</strong>
       </div>
 
       <div className="d-flex justify-content-between mb-3">
@@ -146,10 +144,9 @@ export default function BookingSummary({
       {/* Total */}
 
       <div className="d-flex justify-content-between align-items-center">
-
         <h4
           style={{
-            color: "var(--color-text-primary)",
+            color: 'var(--color-text-primary)',
             margin: 0,
           }}
         >
@@ -158,36 +155,34 @@ export default function BookingSummary({
 
         <h3
           style={{
-            color: "var(--color-accent)",
+            color: 'var(--color-accent)',
             margin: 0,
             fontWeight: 700,
           }}
         >
           NPR {total.toLocaleString()}
         </h3>
-
       </div>
 
       {/* Info */}
 
       <div
         style={{
-          marginTop: "24px",
-          padding: "16px",
-          borderRadius: "12px",
-          background: "var(--color-bg-secondary)",
+          marginTop: '24px',
+          padding: '16px',
+          borderRadius: '12px',
+          background: 'var(--color-bg-secondary)',
         }}
       >
         <small
           style={{
-            color: "var(--color-text-muted)",
+            color: 'var(--color-text-muted)',
           }}
         >
           ✔ Free cancellation within 24 hours.
           <br />
           ✔ No hidden charges.
-          <br />
-          ✔ Secure booking process.
+          <br />✔ Secure booking process.
         </small>
       </div>
     </div>

@@ -1,48 +1,61 @@
-import {Link,useNavigate} from "react-router";
-import React, { useState } from "react";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
-import type { UserRegisterData } from "../types";
-import { registerService } from "../services/authServices";
-import { useToast } from "../contexts/ToastContext";
-import axios from "axios";
+import { Link, useNavigate } from 'react-router';
+import React, { useState } from 'react';
+import { IoArrowBackCircleSharp } from 'react-icons/io5';
+import type { UserRegisterData } from '../types';
+import { registerService } from '../services/authServices';
+import { useToast } from '../contexts/ToastContext';
+import axios from 'axios';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [registerForm,setRegisterForm]=useState<UserRegisterData>({name:"",email:"",password:"",confirmPsd:""});
+  const [registerForm, setRegisterForm] = useState<UserRegisterData>({
+    name: '',
+    email: '',
+    password: '',
+    confirmPsd: '',
+  });
 
-  const {addToast} =useToast()
+  const { addToast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  const { name, value } = e.target;
-  setRegisterForm((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-};
+    const { name, value } = e.target;
+    setRegisterForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   const handleSubmit = async (
-  e: React.FormEvent<HTMLFormElement>
-): Promise<void> => {
-  e.preventDefault();
-  console.log(registerForm);
-  try {
-    const response = await registerService(registerForm);
-    if(response.status=== 201){
-      addToast("Registration successful!","success")
-      navigate("/login");
-      setRegisterForm({name:"",email:"",password:"",confirmPsd:""})
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    console.log(registerForm);
+    try {
+      const response = await registerService(registerForm);
+      if (response.status === 201) {
+        addToast('Registration successful!', 'success');
+        navigate('/login');
+        setRegisterForm({ name: '', email: '', password: '', confirmPsd: '' });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        addToast(
+          error ? error.response?.data.message : 'Something went wrong',
+          'error'
+        );
+      } else {
+        console.log(error);
+      }
     }
-  } catch (error) {
-  if (axios.isAxiosError(error)) {
-    addToast(error ? error.response?.data.message : "Something went wrong","error")
-  } else {
-    console.log(error);
-  }
-}
-};
+  };
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="custom-card px-4 py-2" style={{ width: "400px" }}>
-        <span onClick={()=>navigate("/")} style={{color: "var(--color-accent)", fontSize:"30px"}}><IoArrowBackCircleSharp /></span>
+      <div className="custom-card px-4 py-2" style={{ width: '400px' }}>
+        <span
+          onClick={() => navigate('/')}
+          style={{ color: 'var(--color-accent)', fontSize: '30px' }}
+        >
+          <IoArrowBackCircleSharp />
+        </span>
         <h2>Hotel Booking System</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-2">
@@ -92,9 +105,9 @@ const Register = () => {
               onChange={handleChange}
             />
           </div>
-        <div className="mb-2">
+          <div className="mb-2">
             <label htmlFor="exampleInputPassword2" className="form-label">
-             Confirm Password
+              Confirm Password
             </label>
 
             <input
@@ -112,7 +125,7 @@ const Register = () => {
         </form>
 
         <p className="mt-3 text-center">
-          Already have an account? <Link to={"/login"}>Login here</Link>
+          Already have an account? <Link to={'/login'}>Login here</Link>
         </p>
       </div>
     </div>

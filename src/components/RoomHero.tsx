@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
-import type { Room } from "../types";
+import { useNavigate } from 'react-router-dom';
+import type { Room } from '../types';
 
 interface RoomHeroProps {
   room: Room;
@@ -11,86 +11,77 @@ export default function RoomHero({ room }: RoomHeroProps) {
   return (
     <section
       style={{
-        padding: "80px 0",
-        background: "var(--color-bg-primary)",
-        borderBottom: "1px solid var(--color-border)",
+        padding: '80px 0',
+        background: 'var(--color-bg-primary)',
+        borderBottom: '1px solid var(--color-border)',
       }}
     >
       <div className="container">
-
         <div className="row g-5 align-items-center">
-
           {/* Left Side */}
 
           <div className="col-lg-6">
-
             {/* Image */}
-        <div style={{ height: "320px", overflow: "hidden" }}>
-          {room.image_url ? (
-            <img
-              src={room.image_url}
-              alt={room.type}
-              style={{
-                width:      "100%",
-                height:     "100%",
-                objectFit:  "cover",
-              }}
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          ) : (
-            <div style={{
-              height:         "100%",
-              display:        "flex",
-              alignItems:     "center",
-              justifyContent: "center",
-              fontSize:       "4rem",
-            }}>
-              🛏️
+            <div style={{ height: '320px', overflow: 'hidden' }}>
+              {room.image_url ? (
+                <img
+                  src={room.image_url}
+                  alt={room.type}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+              ) : (
+                <div
+                  style={{
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '4rem',
+                  }}
+                >
+                  🛏️
+                </div>
+              )}
             </div>
-          )}
-      </div>
-
           </div>
 
           {/* Right Side */}
 
           <div className="col-lg-6">
-
             {/* Rating & Availability */}
 
             <div className="d-flex align-items-center gap-3 mb-3">
-
               <span
                 style={{
-                  color: "#f59e0b",
+                  color: '#f59e0b',
                   fontWeight: 700,
-                  fontSize: "1rem",
+                  fontSize: '1rem',
                 }}
               >
                 ⭐ {room.rating}
               </span>
 
               {room.is_available ? (
-                <span className="badge-available">
-                  Available
-                </span>
+                <span className="badge-available">Available</span>
               ) : (
-                <span className="badge-booked">
-                  Booked
-                </span>
+                <span className="badge-booked">Booked</span>
               )}
-
             </div>
 
             {/* Room Name */}
 
             <h1
               style={{
-                color: "var(--color-text-primary)",
+                color: 'var(--color-text-primary)',
                 fontWeight: 800,
-                marginBottom: "18px",
+                marginBottom: '18px',
               }}
             >
               {room.type}
@@ -100,10 +91,10 @@ export default function RoomHero({ room }: RoomHeroProps) {
 
             <p
               style={{
-                color: "var(--color-text-muted)",
-                fontSize: "var(--text-lg)",
+                color: 'var(--color-text-muted)',
+                fontSize: 'var(--text-lg)',
                 lineHeight: 1.8,
-                marginBottom: "28px",
+                marginBottom: '28px',
               }}
             >
               {room.description}
@@ -113,14 +104,14 @@ export default function RoomHero({ room }: RoomHeroProps) {
 
             <div
               style={{
-                marginBottom: "30px",
+                marginBottom: '30px',
               }}
             >
               <span
                 style={{
-                  fontSize: "2.5rem",
+                  fontSize: '2.5rem',
                   fontWeight: 800,
-                  color: "var(--color-accent)",
+                  color: 'var(--color-accent)',
                 }}
               >
                 NPR {room.price.toLocaleString()}
@@ -128,9 +119,9 @@ export default function RoomHero({ room }: RoomHeroProps) {
 
               <span
                 style={{
-                  marginLeft: "8px",
-                  color: "var(--color-text-muted)",
-                  fontSize: "1rem",
+                  marginLeft: '8px',
+                  color: 'var(--color-text-muted)',
+                  fontSize: '1rem',
                 }}
               >
                 / night
@@ -140,7 +131,6 @@ export default function RoomHero({ room }: RoomHeroProps) {
             {/* Quick Features */}
 
             <div className="row g-3 mb-4">
-
               <div className="col-6">
                 <div className="custom-card p-3 text-center">
                   👥 <br />
@@ -168,7 +158,17 @@ export default function RoomHero({ room }: RoomHeroProps) {
                   <strong>City View</strong>
                 </div>
               </div>
-<div style={{display:"flex", justifyContent:"center", alignItems:"center"}}>{room.amenities.map((item)=>(<span style={{padding:"6px 12px"}}>✅{item}</span>))}</div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {room.amenities.map((item) => (
+                  <span style={{ padding: '6px 12px' }}>✅{item}</span>
+                ))}
+              </div>
             </div>
             {/* Buttons */}
             <div className="d-flex gap-3 flex-wrap">
@@ -177,12 +177,9 @@ export default function RoomHero({ room }: RoomHeroProps) {
                 disabled={!room.is_available}
                 onClick={() => navigate(`/booking/${room.id}`)}
               >
-                {room.is_available ? "Book Now" : "Currently Booked"}
+                {room.is_available ? 'Book Now' : 'Currently Booked'}
               </button>
-              <button
-                className="btn-ghost"
-                onClick={() => navigate("/rooms")}
-              >
+              <button className="btn-ghost" onClick={() => navigate('/rooms')}>
                 ← Back to Rooms
               </button>
             </div>

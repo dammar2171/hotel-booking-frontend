@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface FilterSectionProps {
   search: string;
@@ -24,20 +24,18 @@ const FilterSection: React.FC<FilterSectionProps> = ({
   onReset,
 }) => {
   return (
-    <section style={{ padding: "60px 0" }}>
+    <section style={{ padding: '60px 0' }}>
       <div className="container">
         <div
           className="custom-card"
           style={{
-            padding: "32px",
+            padding: '32px',
           }}
         >
           <div className="row g-3 align-items-end">
             {/* Search */}
             <div className="col-lg-3 col-md-6">
-              <label className="form-label fw-semibold">
-                Search Room
-              </label>
+              <label className="form-label fw-semibold">Search Room</label>
 
               <input
                 type="text"
@@ -50,9 +48,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 
             {/* Room Type */}
             <div className="col-lg-2 col-md-6">
-              <label className="form-label fw-semibold">
-                Room Type
-              </label>
+              <label className="form-label fw-semibold">Room Type</label>
 
               <select
                 className="custom-input"
@@ -70,9 +66,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 
             {/* Availability */}
             <div className="col-lg-2 col-md-6">
-              <label className="form-label fw-semibold">
-                Availability
-              </label>
+              <label className="form-label fw-semibold">Availability</label>
 
               <select
                 className="custom-input"
@@ -87,9 +81,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 
             {/* Price */}
             <div className="col-lg-3 col-md-6">
-              <label className="form-label fw-semibold">
-                Price Range
-              </label>
+              <label className="form-label fw-semibold">Price Range</label>
 
               <select
                 className="custom-input"
@@ -106,10 +98,7 @@ const FilterSection: React.FC<FilterSectionProps> = ({
 
             {/* Reset */}
             <div className="col-lg-2 col-md-12">
-              <button
-                className="btn-ghost w-100"
-                onClick={onReset}
-              >
+              <button className="btn-ghost w-100" onClick={onReset}>
                 Reset Filters
               </button>
             </div>

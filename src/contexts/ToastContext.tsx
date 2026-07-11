@@ -1,16 +1,16 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
-import Toast from "../components/ui/Toast";
+import { createContext, useContext, useState, type ReactNode } from 'react';
+import Toast from '../components/ui/Toast';
 
-type Type = "info" | "success" | "error" | "warning";
+type Type = 'info' | 'success' | 'error' | 'warning';
 
 export interface ToastItem {
-  id:      number;
+  id: number;
   message: string;
-  type:    Type;
+  type: Type;
 }
 
 interface ToastContextType {
-  addToast:    (message: string, type: Type) => void;
+  addToast: (message: string, type: Type) => void;
   removeToast: (id: number) => void;
 }
 
@@ -34,15 +34,17 @@ const ToastProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ToastContext.Provider value={{ addToast, removeToast }}>
       {children}
-      <div style={{
-        position: "fixed",
-        top:   "34px",
-        right:    "24px",
-        zIndex:   1000,
-        display:  "flex",
-        flexDirection: "column",
-        gap:      "8px",
-      }}>
+      <div
+        style={{
+          position: 'fixed',
+          top: '34px',
+          right: '24px',
+          zIndex: 1000,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '8px',
+        }}
+      >
         {toasts.map((toast) => (
           <Toast
             key={toast.id}
@@ -61,6 +63,6 @@ export default ToastProvider;
 
 export function useToast() {
   const context = useContext(ToastContext);
-  if (!context) throw new Error("useToast must be used within ToastProvider");
+  if (!context) throw new Error('useToast must be used within ToastProvider');
   return context;
 }

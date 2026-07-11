@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import './App.css'
-import { AuthProvider, useAuth } from './contexts/AuthContext'
+import './App.css';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -23,43 +23,51 @@ import MyBookings from './pages/MyBooking';
 import Room from './pages/RoomPage';
 import { RoomProvider } from './contexts/RoomContext';
 
+const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
+  const { isLogged } = useAuth();
+  return isLogged ? <>{children}</> : <Navigate to={'/login'} />;
+};
 
-const ProtectedRoutes =({children}:{children:React.ReactNode})=>{
-    const {isLogged} = useAuth();
-    return isLogged ? <>{children}</> : <Navigate to={"/login"}/>
-}
+const ProtectedAdminRoutes = ({ children }: { children: React.ReactNode }) => {
+  const { isAdmin } = useAuth();
+  return isAdmin ? <>{children}</> : <Navigate to={'/'} />;
+};
 
-const ProtectedAdminRoutes =({children}:{children:React.ReactNode})=>{
-    const {isAdmin} = useAuth();
-    return isAdmin ? <>{children}</> : <Navigate to={"/"}/>
-}
-
-const AppRoutes=()=>{
-  return <>
-              <Routes>
-                  <Route path='/' element= {<Home/>}></Route>
-                  <Route path='/login' element={<Login/>}></Route>
-                  <Route path='/register' element={<Register/>}></Route>
-                  <Route path='/admin' element={<Dashboard/>}></Route>
-                  <Route path='/about' element={<About/>}></Route>
-                  <Route path='/contact' element={<Contact/>}></Route>
-                  <Route path='/rooms' element={<Room/>}></Route>
-                  <Route path='/rooms/:id' element={<RoomDetail/>}></Route>
-                  <Route path='/booking/:id' element={<Booking/>}></Route>
-                  <Route path='/profile' element={<Profile/>}></Route>
-                  <Route path='/settings' element={<Setting/>}></Route>
-                  <Route path='/my-bookings' element={<MyBookings/>}></Route>
-                  <Route path='/dashboard' element={<ProtectedAdminRoutes><Dashboard/></ProtectedAdminRoutes>}>
-                  <Route index element={<DashboardStats/>}></Route>
-                  <Route path='rooms' element={<ManageRooms/>}></Route>
-                  <Route path='guests' element={<ManageGuests/>}></Route>
-                  <Route path='bookings' element={<ManageBookings/>}></Route>
-                   <Route path='stats' element={<StatsPage/>}></Route>
-                   <Route path='settings' element={<Settings/>}></Route>
-                  </Route>
-              </Routes>
-          </>
-}
+const AppRoutes = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path="/admin" element={<Dashboard />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/rooms" element={<Room />}></Route>
+        <Route path="/rooms/:id" element={<RoomDetail />}></Route>
+        <Route path="/booking/:id" element={<Booking />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/settings" element={<Setting />}></Route>
+        <Route path="/my-bookings" element={<MyBookings />}></Route>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedAdminRoutes>
+              <Dashboard />
+            </ProtectedAdminRoutes>
+          }
+        >
+          <Route index element={<DashboardStats />}></Route>
+          <Route path="rooms" element={<ManageRooms />}></Route>
+          <Route path="guests" element={<ManageGuests />}></Route>
+          <Route path="bookings" element={<ManageBookings />}></Route>
+          <Route path="stats" element={<StatsPage />}></Route>
+          <Route path="settings" element={<Settings />}></Route>
+        </Route>
+      </Routes>
+    </>
+  );
+};
 
 function App() {
   return (
@@ -74,7 +82,7 @@ function App() {
         </ToastProvider>
       </AuthProvider>
     </ThemeProvider>
-  )
+  );
 }
 
-export default App
+export default App;

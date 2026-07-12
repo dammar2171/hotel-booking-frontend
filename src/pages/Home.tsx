@@ -1,31 +1,31 @@
-// src/pages/Home.tsx
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Footer from '../components/layouts/Footer';
 import Navbar from '../components/layouts/Navbar';
-import Card from '../components/ui/Card';
 import '../styles/Home.css';
+import { motion } from 'framer-motion';
+import { fadeUp, staggerContainer, scaleUp } from '../animations/motions';
 
 const features = [
   {
     icon: '🛏️',
-    title: 'Comfortable Rooms',
-    desc: 'Choose from standard, deluxe, and suite rooms tailored to your needs.',
+    title: 'Handpicked Rooms',
+    desc: 'Every room curated for comfort, elegance and a flawless guest experience.',
   },
   {
     icon: '⚡',
     title: 'Instant Booking',
-    desc: 'Book your room in seconds with our simple and fast booking system.',
+    desc: 'Reserve your perfect room in under 60 seconds — no calls, no waiting.',
   },
   {
     icon: '🔒',
-    title: 'Secure Payments',
-    desc: 'Your data and transactions are fully protected and encrypted.',
+    title: 'Secure & Private',
+    desc: 'Bank-grade encryption protects every transaction and personal detail.',
   },
   {
     icon: '🌟',
-    title: 'Premium Service',
-    desc: 'Experience world-class hospitality with 24/7 guest support.',
+    title: 'Concierge Support',
+    desc: 'Our dedicated team is available around the clock for every request.',
   },
 ];
 
@@ -34,31 +34,82 @@ const roomTypes = [
     icon: '🏠',
     type: 'Standard Room',
     price: 'NPR 2,000',
-    desc: 'Perfect for solo travelers or short stays.',
-    features: ['Free WiFi', 'AC', 'TV', 'Daily Housekeeping'],
+    desc: 'Thoughtfully designed for solo travelers and short stays.',
+    features: [
+      'Free WiFi',
+      'Air Conditioning',
+      'Smart TV',
+      'Daily Housekeeping',
+    ],
+    popular: false,
   },
   {
     icon: '✨',
     type: 'Deluxe Room',
     price: 'NPR 5,000',
-    desc: 'Spacious room with premium amenities and city view.',
-    features: ['Free WiFi', 'AC', 'Mini Bar', 'King Bed', 'City View'],
+    desc: 'Elevated comfort with panoramic city views and premium amenities.',
+    features: [
+      'Free WiFi',
+      'Air Conditioning',
+      'Mini Bar',
+      'King Bed',
+      'City View',
+    ],
     popular: true,
   },
   {
     icon: '👑',
     type: 'Suite Room',
     price: 'NPR 12,000',
-    desc: 'Luxury suite for a truly unforgettable experience.',
-    features: ['Free WiFi', 'Jacuzzi', 'Living Room', 'Butler Service'],
+    desc: 'An indulgent sanctuary for those who accept nothing but the finest.',
+    features: ['Free WiFi', 'Private Jacuzzi', 'Living Room', 'Butler Service'],
+    popular: false,
   },
 ];
 
 const stats = [
-  { value: '500+', label: 'Happy Guests' },
-  { value: '50+', label: 'Rooms Available' },
-  { value: '10+', label: 'Years Experience' },
-  { value: '24/7', label: 'Customer Support' },
+  { value: '500+', label: 'Happy Guests', icon: '😊' },
+  { value: '50+', label: 'Luxury Rooms', icon: '🛏️' },
+  { value: '10+', label: 'Years Excellence', icon: '🏆' },
+  { value: '24/7', label: 'Concierge Support', icon: '🌙' },
+];
+
+const testimonials = [
+  {
+    name: 'Sarah Johnson',
+    role: 'Business Traveler',
+    review:
+      'Absolutely flawless experience from check-in to check-out. The attention to detail is unmatched.',
+    rating: 5,
+    avatar: 'S',
+  },
+  {
+    name: 'Rajesh Sharma',
+    role: 'Honeymoon Guest',
+    review:
+      'The suite exceeded every expectation. My wife and I felt like royalty the entire stay.',
+    rating: 5,
+    avatar: 'R',
+  },
+  {
+    name: 'Emily Chen',
+    role: 'Leisure Traveler',
+    review:
+      'Stunning rooms, impeccable service and the booking process was effortless. Will return.',
+    rating: 5,
+    avatar: 'E',
+  },
+];
+
+const amenities = [
+  { icon: '🏊', label: 'Infinity Pool' },
+  { icon: '🍽️', label: 'Fine Dining' },
+  { icon: '💆', label: 'Spa & Wellness' },
+  { icon: '🏋️', label: 'Fitness Center' },
+  { icon: '🚗', label: 'Valet Parking' },
+  { icon: '✈️', label: 'Airport Transfer' },
+  { icon: '📶', label: 'High Speed WiFi' },
+  { icon: '🎰', label: 'Business Center' },
 ];
 
 export default function Home() {
@@ -69,8 +120,14 @@ export default function Home() {
     <>
       <Navbar />
       <div style={{ background: 'var(--color-bg-secondary)' }}>
-        {/* ══ HERO ══════════════════════════════ */}
-        <div className="heroContainer">
+        {/* ══ HERO — untouched ══════════════════ */}
+        <motion.div
+          className="heroContainer"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <div
             style={{
               display: 'inline-flex',
@@ -88,6 +145,7 @@ export default function Home() {
           >
             ⭐ Premium Hotel Experience
           </div>
+
           <h1
             style={{
               fontSize: 'clamp(2rem, 5vw, 3rem)',
@@ -101,6 +159,7 @@ export default function Home() {
             Your Perfect Stay{' '}
             <span style={{ color: 'var(--color-accent)' }}>Starts Here</span>
           </h1>
+
           <p
             style={{
               fontSize: 'var(--text-lg)',
@@ -113,6 +172,7 @@ export default function Home() {
             Discover luxury and comfort at Hotel Booking System. Book your room
             in minutes and enjoy a world-class experience.
           </p>
+
           <div className="d-flex gap-3 flex-wrap">
             <button
               onClick={() => navigate('/rooms')}
@@ -130,6 +190,7 @@ export default function Home() {
             >
               Browse Rooms
             </button>
+
             {!isLogged && (
               <button
                 onClick={() => navigate('/register')}
@@ -149,81 +210,298 @@ export default function Home() {
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
 
-        {/* ══ FEATURES ════════════════════════════ */}
-        <section style={{ padding: '80px 0' }}>
+        {/* ══ STATS BAR ═══════════════════════════ */}
+        <motion.section
+          style={{
+            background: 'var(--color-bg-primary)',
+            borderTop: '1px solid var(--color-border)',
+            borderBottom: '1px solid var(--color-border)',
+            padding: '40px 0',
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer}
+        >
           <div className="container">
-            <div className="text-center mb-5">
-              <h2
-                style={{
-                  fontWeight: 700,
-                  color: 'var(--color-text-primary)',
-                  marginBottom: '12px',
-                }}
-              >
-                Why Choose Us
-              </h2>
-              <p
-                style={{
-                  color: 'var(--color-text-muted)',
-                  fontSize: 'var(--text-lg)',
-                }}
-              >
-                We provide the best hotel experience for every guest
-              </p>
-            </div>
-
             <div className="row g-4">
-              {features.map((item) => (
-                <div key={item.title} className="col-sm-6 col-lg-3">
-                  <Card item={item} />
-                </div>
+              {stats.map((s, i) => (
+                <motion.div
+                  key={s.label}
+                  className="col-6 col-lg-3"
+                  variants={scaleUp}
+                >
+                  <div
+                    style={{
+                      textAlign: 'center',
+                      padding: '8px',
+                      borderRight:
+                        i < 3 ? '1px solid var(--color-border)' : 'none',
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: '1.6rem',
+                        marginBottom: '6px',
+                      }}
+                    >
+                      {s.icon}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: '2.2rem',
+                        fontWeight: 800,
+                        color: 'var(--color-accent)',
+                        lineHeight: 1,
+                        letterSpacing: '-0.02em',
+                      }}
+                    >
+                      {s.value}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: 'var(--text-sm)',
+                        color: 'var(--color-text-muted)',
+                        marginTop: '6px',
+                        fontWeight: 500,
+                      }}
+                    >
+                      {s.label}
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        {/* ══ ROOM TYPES ══════════════════════════ */}
-        <section
-          style={{
-            padding: '80px 0',
-            background: 'var(--color-bg-primary)',
-          }}
+        {/* ══ WHY CHOOSE US ═══════════════════════ */}
+        <motion.section
+          style={{ padding: '100px 0' }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
         >
           <div className="container">
-            <div className="text-center mb-5">
-              <h2
+            {/* Section Heading */}
+            <motion.div
+              variants={fadeUp}
+              style={{ textAlign: 'center', marginBottom: '60px' }}
+            >
+              <span
                 style={{
+                  display: 'inline-block',
+                  fontSize: 'var(--text-xs)',
                   fontWeight: 700,
-                  color: 'var(--color-text-primary)',
+                  color: 'var(--color-accent)',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
                   marginBottom: '12px',
                 }}
               >
-                Our Room Types
+                Our Promise
+              </span>
+
+              <h2
+                style={{
+                  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                  fontWeight: 800,
+                  color: 'var(--color-text-primary)',
+                  marginBottom: '16px',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                Why Guests Choose Us
+              </h2>
+
+              <p
+                style={{
+                  color: 'var(--color-text-muted)',
+                  fontSize: 'var(--text-lg)',
+                  maxWidth: '500px',
+                  margin: '0 auto',
+                  lineHeight: 1.7,
+                }}
+              >
+                We redefine hospitality with a commitment to excellence that
+                goes beyond expectations
+              </p>
+            </motion.div>
+
+            {/* Feature Cards */}
+            <motion.div className="row g-4" variants={staggerContainer}>
+              {features.map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  className="col-sm-6 col-lg-3"
+                  variants={fadeUp}
+                >
+                  <div
+                    style={{
+                      background: 'var(--color-bg-card)',
+                      border: '1px solid var(--color-border)',
+                      borderRadius: 'var(--radius-lg)',
+                      padding: '36px 28px',
+                      height: '100%',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      transition: 'var(--transition-base)',
+                    }}
+                  >
+                    {/* Corner Number */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '16px',
+                        right: '20px',
+                        fontSize: '3.5rem',
+                        fontWeight: 900,
+                        color: 'var(--color-border)',
+                        lineHeight: 1,
+                        userSelect: 'none',
+                      }}
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+
+                    {/* Icon */}
+                    <div
+                      style={{
+                        width: '56px',
+                        height: '56px',
+                        borderRadius: 'var(--radius-md)',
+                        background: 'var(--color-accent-light)',
+                        border: '1px solid var(--color-accent-border)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.5rem',
+                        marginBottom: '24px',
+                      }}
+                    >
+                      {item.icon}
+                    </div>
+
+                    <h5
+                      style={{
+                        fontWeight: 700,
+                        color: 'var(--color-text-primary)',
+                        marginBottom: '10px',
+                        fontSize: 'var(--text-lg)',
+                      }}
+                    >
+                      {item.title}
+                    </h5>
+
+                    <p
+                      style={{
+                        color: 'var(--color-text-muted)',
+                        fontSize: 'var(--text-sm)',
+                        margin: 0,
+                        lineHeight: 1.7,
+                      }}
+                    >
+                      {item.desc}
+                    </p>
+
+                    {/* Bottom Accent */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '40px',
+                        height: '3px',
+                        background: 'var(--color-accent)',
+                        borderRadius: '0 var(--radius-full) 0 0',
+                      }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* ══ ROOM TYPES ══════════════════════════ */}
+        <motion.section
+          style={{
+            padding: '100px 0',
+            background: 'var(--color-bg-primary)',
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="container">
+            <motion.div
+              variants={fadeUp}
+              style={{ textAlign: 'center', marginBottom: '60px' }}
+            >
+              <span
+                style={{
+                  display: 'inline-block',
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 700,
+                  color: 'var(--color-accent)',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  marginBottom: '12px',
+                }}
+              >
+                Accommodations
+              </span>
+              <h2
+                style={{
+                  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                  fontWeight: 800,
+                  color: 'var(--color-text-primary)',
+                  marginBottom: '16px',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                Choose Your Perfect Room
               </h2>
               <p
                 style={{
                   color: 'var(--color-text-muted)',
                   fontSize: 'var(--text-lg)',
+                  maxWidth: '500px',
+                  margin: '0 auto',
+                  lineHeight: 1.7,
                 }}
               >
-                Find the perfect room for your stay
+                Each room is a masterpiece of comfort and refined taste
               </p>
-            </div>
+            </motion.div>
 
-            <div className="row g-4">
+            <motion.div variants={staggerContainer} className="row g-4">
               {roomTypes.map((room) => (
-                <div key={room.type} className="col-md-4">
+                <motion.div
+                  variants={fadeUp}
+                  key={room.type}
+                  className="col-md-4"
+                >
                   <div
-                    className="custom-card"
                     style={{
-                      padding: '32px 28px',
-                      height: '100%',
-                      position: 'relative',
+                      background: 'var(--color-bg-card)',
                       border: room.popular
                         ? '2px solid var(--color-accent)'
                         : '1px solid var(--color-border)',
+                      borderRadius: 'var(--radius-lg)',
+                      overflow: 'hidden',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                      transition: 'var(--transition-base)',
+                      boxShadow: room.popular
+                        ? 'var(--shadow-lg)'
+                        : 'var(--shadow-card)',
                     }}
                   >
                     {/* Popular badge */}
@@ -231,193 +509,612 @@ export default function Home() {
                       <div
                         style={{
                           position: 'absolute',
-                          top: '-12px',
-                          left: '50%',
-                          transform: 'translateX(-50%)',
+                          top: '16px',
+                          right: '16px',
                           background: 'var(--color-accent)',
                           color: 'var(--color-accent-text)',
-                          padding: '3px 16px',
+                          padding: '4px 14px',
                           borderRadius: 'var(--radius-full)',
                           fontSize: 'var(--text-xs)',
-                          fontWeight: 600,
-                          whiteSpace: 'nowrap',
+                          fontWeight: 700,
+                          zIndex: 1,
                         }}
                       >
-                        ⭐ Most Popular
+                        Most Popular
                       </div>
                     )}
 
-                    <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>
-                      {room.icon}
-                    </div>
-
-                    <h4
-                      style={{
-                        fontWeight: 700,
-                        color: 'var(--color-text-primary)',
-                        marginBottom: '6px',
-                      }}
-                    >
-                      {room.type}
-                    </h4>
-
+                    {/* Top color bar */}
                     <div
                       style={{
-                        fontSize: '1.5rem',
-                        fontWeight: 800,
-                        color: 'var(--color-accent)',
-                        marginBottom: '8px',
-                      }}
-                    >
-                      {room.price}
-                      <span
-                        style={{
-                          fontSize: 'var(--text-sm)',
-                          fontWeight: 400,
-                          color: 'var(--color-text-muted)',
-                        }}
-                      >
-                        /night
-                      </span>
-                    </div>
-
-                    <p
-                      style={{
-                        color: 'var(--color-text-muted)',
-                        fontSize: 'var(--text-sm)',
-                        marginBottom: '20px',
-                      }}
-                    >
-                      {room.desc}
-                    </p>
-
-                    {/* Features list */}
-                    <ul
-                      style={{
-                        listStyle: 'none',
-                        padding: 0,
-                        margin: '0 0 24px',
-                      }}
-                    >
-                      {room.features.map((feat) => (
-                        <li
-                          key={feat}
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            fontSize: 'var(--text-sm)',
-                            color: 'var(--color-text-secondary)',
-                            marginBottom: '6px',
-                          }}
-                        >
-                          <span style={{ color: 'var(--color-success)' }}>
-                            ✓
-                          </span>
-                          {feat}
-                        </li>
-                      ))}
-                    </ul>
-
-                    <button
-                      onClick={() => navigate('/rooms')}
-                      style={{
-                        width: '100%',
-                        padding: '10px',
+                        height: '4px',
                         background: room.popular
                           ? 'var(--color-accent)'
-                          : 'transparent',
-                        color: room.popular
-                          ? 'var(--color-accent-text)'
-                          : 'var(--color-accent)',
-                        border: `1px solid var(--color-accent)`,
-                        borderRadius: 'var(--radius-sm)',
-                        fontWeight: 600,
-                        fontSize: 'var(--text-sm)',
-                        cursor: 'pointer',
-                        transition: 'var(--transition-base)',
+                          : 'var(--color-border)',
+                      }}
+                    />
+
+                    {/* Card content */}
+                    <div
+                      style={{
+                        padding: '36px 32px',
+                        flex: 1,
+                        display: 'flex',
+                        flexDirection: 'column',
                       }}
                     >
-                      Book Now
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+                      {/* Icon + type */}
+                      <div style={{ marginBottom: '20px' }}>
+                        <div
+                          style={{
+                            fontSize: '2rem',
+                            marginBottom: '12px',
+                          }}
+                        >
+                          {room.icon}
+                        </div>
+                        <h4
+                          style={{
+                            fontWeight: 700,
+                            color: 'var(--color-text-primary)',
+                            margin: 0,
+                            fontSize: 'var(--text-xl)',
+                          }}
+                        >
+                          {room.type}
+                        </h4>
+                      </div>
 
-        {/* ══ CTA BANNER ══════════════════════════ */}
-        <section style={{ padding: '80px 0' }}>
+                      {/* Price */}
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'baseline',
+                          gap: '4px',
+                          marginBottom: '12px',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: '2rem',
+                            fontWeight: 800,
+                            color: 'var(--color-accent)',
+                            lineHeight: 1,
+                          }}
+                        >
+                          {room.price}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 'var(--text-sm)',
+                            color: 'var(--color-text-muted)',
+                          }}
+                        >
+                          / night
+                        </span>
+                      </div>
+
+                      {/* Divider */}
+                      <div
+                        style={{
+                          height: '1px',
+                          background: 'var(--color-border)',
+                          margin: '16px 0',
+                        }}
+                      />
+
+                      <p
+                        style={{
+                          color: 'var(--color-text-muted)',
+                          fontSize: 'var(--text-sm)',
+                          marginBottom: '20px',
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {room.desc}
+                      </p>
+
+                      {/* Features */}
+                      <ul
+                        style={{
+                          listStyle: 'none',
+                          padding: 0,
+                          margin: '0 0 28px',
+                          flex: 1,
+                        }}
+                      >
+                        {room.features.map((feat) => (
+                          <li
+                            key={feat}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '10px',
+                              fontSize: 'var(--text-sm)',
+                              color: 'var(--color-text-secondary)',
+                              marginBottom: '8px',
+                            }}
+                          >
+                            <span
+                              style={{
+                                width: '18px',
+                                height: '18px',
+                                borderRadius: 'var(--radius-full)',
+                                background: 'var(--color-success-bg)',
+                                border: '1px solid var(--color-success-border)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '10px',
+                                flexShrink: 0,
+                                color: 'var(--color-success)',
+                              }}
+                            >
+                              ✓
+                            </span>
+                            {feat}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Book button */}
+                      <button
+                        onClick={() => navigate('/rooms')}
+                        style={{
+                          width: '100%',
+                          padding: '13px',
+                          background: room.popular
+                            ? 'var(--color-accent)'
+                            : 'transparent',
+                          color: room.popular
+                            ? 'var(--color-accent-text)'
+                            : 'var(--color-accent)',
+                          border: '1px solid var(--color-accent)',
+                          borderRadius: 'var(--radius-sm)',
+                          fontWeight: 600,
+                          fontSize: 'var(--text-sm)',
+                          cursor: 'pointer',
+                          transition: 'var(--transition-base)',
+                          letterSpacing: '0.02em',
+                        }}
+                      >
+                        Reserve Now
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* ══ AMENITIES ═══════════════════════════ */}
+        <motion.section
+          style={{ padding: '100px 0' }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           <div className="container">
-            <div
+            <motion.div
+              variants={fadeUp}
               style={{
-                background: 'var(--color-accent)',
-                borderRadius: 'var(--radius-xl)',
-                padding: '60px 40px',
-                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '24px',
+                marginBottom: '60px',
               }}
             >
-              <h2
-                style={{
-                  color: 'var(--color-accent-text)',
-                  fontWeight: 800,
-                  fontSize: 'clamp(1.5rem, 4vw, 2.25rem)',
-                  marginBottom: '16px',
-                }}
-              >
-                Ready to Book Your Stay?
-              </h2>
+              <div>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    fontSize: 'var(--text-xs)',
+                    fontWeight: 700,
+                    color: 'var(--color-accent)',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    marginBottom: '12px',
+                  }}
+                >
+                  World Class
+                </span>
+
+                <h2
+                  style={{
+                    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                    fontWeight: 800,
+                    color: 'var(--color-text-primary)',
+                    margin: 0,
+                    letterSpacing: '-0.02em',
+                  }}
+                >
+                  Hotel Amenities
+                </h2>
+              </div>
+
               <p
                 style={{
-                  color: 'rgba(255,255,255,0.85)',
-                  fontSize: 'var(--text-lg)',
-                  marginBottom: '32px',
-                  maxWidth: '480px',
-                  margin: '0 auto 32px',
+                  color: 'var(--color-text-muted)',
+                  fontSize: 'var(--text-base)',
+                  maxWidth: '360px',
+                  lineHeight: 1.7,
+                  margin: 0,
                 }}
               >
-                Join hundreds of happy guests. Book now and get the best rates.
+                Every detail considered. Every comfort provided. Experience the
+                full spectrum of luxury.
               </p>
+            </motion.div>
+
+            <motion.div className="row g-3" variants={staggerContainer}>
+              {amenities.map((a) => (
+                <motion.div
+                  key={a.label}
+                  className="col-6 col-sm-4 col-lg-3"
+                  variants={fadeUp}
+                >
+                  <div
+                    style={{
+                      background: 'var(--color-bg-card)',
+                      border: '1px solid var(--color-border)',
+                      borderRadius: 'var(--radius-md)',
+                      padding: '24px 20px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '14px',
+                      transition: 'var(--transition-base)',
+                      cursor: 'default',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '44px',
+                        height: '44px',
+                        borderRadius: 'var(--radius-sm)',
+                        background: 'var(--color-accent-light)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.3rem',
+                        flexShrink: 0,
+                      }}
+                    >
+                      {a.icon}
+                    </div>
+
+                    <span
+                      style={{
+                        fontWeight: 600,
+                        color: 'var(--color-text-primary)',
+                        fontSize: 'var(--text-sm)',
+                      }}
+                    >
+                      {a.label}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* ══ TESTIMONIALS ════════════════════════ */}
+        <motion.section
+          style={{
+            padding: '100px 0',
+            background: 'var(--color-bg-primary)',
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="container">
+            {/* Section Heading */}
+            <motion.div
+              variants={fadeUp}
+              style={{ textAlign: 'center', marginBottom: '60px' }}
+            >
+              <span
+                style={{
+                  display: 'inline-block',
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 700,
+                  color: 'var(--color-accent)',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  marginBottom: '12px',
+                }}
+              >
+                Guest Stories
+              </span>
+
+              <h2
+                style={{
+                  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
+                  fontWeight: 800,
+                  color: 'var(--color-text-primary)',
+                  marginBottom: '16px',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                What Our Guests Say
+              </h2>
+
+              <p
+                style={{
+                  color: 'var(--color-text-muted)',
+                  fontSize: 'var(--text-lg)',
+                  maxWidth: '480px',
+                  margin: '0 auto',
+                  lineHeight: 1.7,
+                }}
+              >
+                Real stories from real guests who experienced the difference
+              </p>
+            </motion.div>
+
+            {/* Testimonial Cards */}
+            <motion.div className="row g-4" variants={staggerContainer}>
+              {testimonials.map((t) => (
+                <motion.div key={t.name} className="col-md-4" variants={fadeUp}>
+                  <div
+                    style={{
+                      background: 'var(--color-bg-card)',
+                      border: '1px solid var(--color-border)',
+                      borderRadius: 'var(--radius-lg)',
+                      padding: '36px 32px',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                    }}
+                  >
+                    {/* Quote */}
+                    <div
+                      style={{
+                        fontSize: '5rem',
+                        lineHeight: 0.8,
+                        color: 'var(--color-accent-border)',
+                        fontFamily: 'Georgia, serif',
+                        marginBottom: '16px',
+                        userSelect: 'none',
+                      }}
+                    >
+                      "
+                    </div>
+
+                    {/* Stars */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '3px',
+                        marginBottom: '16px',
+                      }}
+                    >
+                      {Array.from({ length: t.rating }).map((_, i) => (
+                        <span
+                          key={i}
+                          style={{
+                            color: '#f59e0b',
+                            fontSize: 'var(--text-base)',
+                          }}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Review */}
+                    <p
+                      style={{
+                        color: 'var(--color-text-secondary)',
+                        fontSize: 'var(--text-base)',
+                        lineHeight: 1.8,
+                        flex: 1,
+                        fontStyle: 'italic',
+                        margin: '0 0 28px',
+                      }}
+                    >
+                      "{t.review}"
+                    </p>
+
+                    {/* Divider */}
+                    <div
+                      style={{
+                        height: '1px',
+                        background: 'var(--color-border)',
+                        marginBottom: '20px',
+                      }}
+                    />
+
+                    {/* Guest */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: 'var(--radius-full)',
+                          background: 'var(--color-accent-light)',
+                          border: '2px solid var(--color-accent-border)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '1rem',
+                          fontWeight: 800,
+                          color: 'var(--color-accent)',
+                          flexShrink: 0,
+                        }}
+                      >
+                        {t.avatar}
+                      </div>
+
+                      <div>
+                        <div
+                          style={{
+                            fontWeight: 700,
+                            color: 'var(--color-text-primary)',
+                            fontSize: 'var(--text-sm)',
+                          }}
+                        >
+                          {t.name}
+                        </div>
+
+                        <div
+                          style={{
+                            fontSize: 'var(--text-xs)',
+                            color: 'var(--color-text-muted)',
+                          }}
+                        >
+                          {t.role}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.section>
+
+        {/* ══ CTA BANNER ══════════════════════════ */}
+        <motion.section
+          style={{ padding: '100px 0' }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <div className="container">
+            <motion.div
+              variants={fadeUp}
+              style={{
+                background: 'var(--color-bg-card)',
+                border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-xl)',
+                padding: '80px 48px',
+                textAlign: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-xl)',
+              }}
+            >
+              {/* Decorative corner accents */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '120px',
+                  height: '120px',
+                  borderTop: '3px solid var(--color-accent-border)',
+                  borderLeft: '3px solid var(--color-accent-border)',
+                  borderRadius: 'var(--radius-lg) 0 0 0',
+                }}
+              />
+
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  right: 0,
+                  width: '120px',
+                  height: '120px',
+                  borderBottom: '3px solid var(--color-accent-border)',
+                  borderRight: '3px solid var(--color-accent-border)',
+                  borderRadius: '0 0 var(--radius-lg) 0',
+                }}
+              />
+
+              {/* Content */}
+              <span
+                style={{
+                  display: 'inline-block',
+                  fontSize: 'var(--text-xs)',
+                  fontWeight: 700,
+                  color: 'var(--color-accent)',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  marginBottom: '20px',
+                }}
+              >
+                Limited Availability
+              </span>
+
+              <h2
+                style={{
+                  fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
+                  fontWeight: 800,
+                  color: 'var(--color-text-primary)',
+                  letterSpacing: '-0.02em',
+                  maxWidth: '600px',
+                  margin: '0 auto 16px',
+                }}
+              >
+                Ready to Experience True Luxury?
+              </h2>
+
+              <p
+                style={{
+                  color: 'var(--color-text-muted)',
+                  fontSize: 'var(--text-lg)',
+                  maxWidth: '480px',
+                  margin: '0 auto 40px',
+                  lineHeight: 1.7,
+                }}
+              >
+                Reserve your room today and discover why discerning travelers
+                choose us for an unforgettable stay.
+              </p>
+
               <div className="d-flex gap-3 justify-content-center flex-wrap">
                 <button
                   onClick={() => navigate('/rooms')}
                   style={{
-                    background: 'var(--color-accent-text)',
-                    color: 'var(--color-accent)',
+                    background: 'var(--color-accent)',
+                    color: 'var(--color-accent-text)',
                     border: 'none',
                     borderRadius: 'var(--radius-sm)',
-                    padding: '13px 32px',
+                    padding: '14px 36px',
                     fontWeight: 700,
                     fontSize: 'var(--text-base)',
                     cursor: 'pointer',
                     transition: 'var(--transition-base)',
+                    letterSpacing: '0.02em',
                   }}
                 >
                   View All Rooms
                 </button>
+
                 {!isLogged && (
                   <button
                     onClick={() => navigate('/register')}
                     style={{
                       background: 'transparent',
-                      color: 'var(--color-accent-text)',
-                      border: '1px solid rgba(255,255,255,0.5)',
+                      color: 'var(--color-text-primary)',
+                      border: '1px solid var(--color-border)',
                       borderRadius: 'var(--radius-sm)',
-                      padding: '13px 32px',
+                      padding: '14px 36px',
                       fontWeight: 500,
                       fontSize: 'var(--text-base)',
                       cursor: 'pointer',
                       transition: 'var(--transition-base)',
                     }}
                   >
-                    Register Free
+                    Create Account
                   </button>
                 )}
               </div>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
       </div>
       <Footer />
     </>

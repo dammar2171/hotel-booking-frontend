@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import CtaCard from '../components/CtaCard';
 import HeroSection from '../components/HeroSection';
+import aboutImage from '../assets/about.jpg';
 
 const ctaData = {
   title: 'Ready to Experience Luxury?',
@@ -78,53 +79,25 @@ export default function About() {
         {/* STORY */}
 
         <section className="py-5">
-          <div className="container">
-            <div className="row align-items-center g-5">
-              <div className="col-lg-6">
-                <h2
-                  style={{
-                    color: 'var(--color-text-primary)',
-                  }}
-                >
-                  Our Story
-                </h2>
-
-                <p style={{ color: 'var(--color-text-muted)' }}>
+          <div className="container line-section">
+            <div className="line-wrapper">
+              <hr className="styled-line" />
+              <div className="center-box">Our Story</div>
+            </div>
+            <div className="image-wrapper py-5 ">
+              <img src={aboutImage} alt="Winter Landscape" />
+              <div className="overlap-box">
+                <h5>
+                  By <a href="#">Dammar Bhatt</a>
+                </h5>
+                <p>
                   Since our establishment, our mission has been to create a
                   welcoming environment where every guest feels at home.
                 </p>
-
-                <p style={{ color: 'var(--color-text-muted)' }}>
+                <p>
                   From luxury suites to affordable rooms, we combine comfort,
                   elegance and technology to deliver an unforgettable stay.
                 </p>
-              </div>
-
-              <div className="col-lg-6">
-                <div
-                  className="custom-card text-center p-5"
-                  style={{
-                    background: 'var(--color-bg-tertiary)',
-                  }}
-                >
-                  <div style={{ fontSize: '6rem' }}>🏨</div>
-
-                  <h4
-                    style={{
-                      color: 'var(--color-text-primary)',
-                    }}
-                  >
-                    Hotel Booking System
-                  </h4>
-
-                  <p
-                    style={{
-                      color: 'var(--color-text-muted)',
-                    }}
-                  >
-                    Luxury • Comfort • Trust
-                  </p>
-                </div>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../../api/axios';
 import { useToast } from '../../contexts/ToastContext';
+import MiniCard from '../../components/ui/MiniCard';
 
 interface Contact {
   id: number;
@@ -140,54 +141,9 @@ export default function ManageContacts() {
             color: 'var(--color-success-text)',
             bg: 'var(--color-success-bg)',
           },
-        ].map((s) => (
-          <div key={s.label} className="col-sm-4">
-            <div
-              style={{
-                ...card,
-                padding: '20px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '16px',
-              }}
-            >
-              <div
-                style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: 'var(--radius-md)',
-                  background: s.bg,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '1.4rem',
-                  flexShrink: 0,
-                }}
-              >
-                {s.icon}
-              </div>
-              <div>
-                <div
-                  style={{
-                    fontSize: '1.5rem',
-                    fontWeight: 800,
-                    color: s.color,
-                    lineHeight: 1,
-                  }}
-                >
-                  {s.value}
-                </div>
-                <div
-                  style={{
-                    fontSize: 'var(--text-xs)',
-                    color: 'var(--color-text-muted)',
-                    marginTop: '4px',
-                  }}
-                >
-                  {s.label}
-                </div>
-              </div>
-            </div>
+        ].map((summary) => (
+          <div key={summary.label} className="col-sm-4">
+            <MiniCard summary={summary} />
           </div>
         ))}
       </div>

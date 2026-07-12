@@ -1,0 +1,13 @@
+.heroContainer{
+    background-image: url(https://www.burjkhalifa.ae/wp-content/themes/salient-child/assets/images/banner/bk_cityscape_banner2.webp);
+    height: 600px;
+    filter: brightness(1.4);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

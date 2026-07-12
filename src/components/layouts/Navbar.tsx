@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
-import styles from '../../styles/Navbar.module.css';
 
 export default function Navbar() {
   const { isLogged, isAdmin, user, logout } = useAuth();
@@ -29,7 +28,6 @@ export default function Navbar() {
 
   return (
     <nav
-      className={styles.customNavbar}
       style={{
         background: 'var(--color-bg-navbar)',
         borderBottom: '1px solid var(--color-border)',

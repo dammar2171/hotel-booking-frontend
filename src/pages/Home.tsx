@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import Footer from '../components/layouts/Footer';
 import Navbar from '../components/layouts/Navbar';
 import Card from '../components/ui/Card';
+import '../styles/Home.css';
 
 const features = [
   {
@@ -69,174 +70,86 @@ export default function Home() {
       <Navbar />
       <div style={{ background: 'var(--color-bg-secondary)' }}>
         {/* ══ HERO ══════════════════════════════ */}
-        <section
-          style={{
-            background: 'var(--color-bg-primary)',
-            borderBottom: '1px solid var(--color-border)',
-            padding: '80px 0 60px',
-          }}
-        >
-          <div className="container">
-            <div className="row align-items-center g-5">
-              {/* Left text */}
-              <div className="col-lg-6">
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    background: 'var(--color-accent-light)',
-                    border: '1px solid var(--color-accent-border)',
-                    borderRadius: 'var(--radius-full)',
-                    padding: '4px 14px',
-                    fontSize: 'var(--text-sm)',
-                    color: 'var(--color-accent)',
-                    fontWeight: 600,
-                    marginBottom: '20px',
-                  }}
-                >
-                  ⭐ Premium Hotel Experience
-                </div>
-
-                <h1
-                  style={{
-                    fontSize: 'clamp(2rem, 5vw, 3rem)',
-                    fontWeight: 800,
-                    color: 'var(--color-text-primary)',
-                    lineHeight: 1.15,
-                    marginBottom: '20px',
-                    letterSpacing: '-0.03em',
-                  }}
-                >
-                  Your Perfect Stay{' '}
-                  <span style={{ color: 'var(--color-accent)' }}>
-                    Starts Here
-                  </span>
-                </h1>
-
-                <p
-                  style={{
-                    fontSize: 'var(--text-lg)',
-                    color: 'var(--color-text-muted)',
-                    marginBottom: '36px',
-                    lineHeight: 1.7,
-                    maxWidth: '480px',
-                  }}
-                >
-                  Discover luxury and comfort at Hotel Booking System. Book your
-                  room in minutes and enjoy a world-class experience.
-                </p>
-
-                <div className="d-flex gap-3 flex-wrap">
-                  <button
-                    onClick={() => navigate('/rooms')}
-                    style={{
-                      background: 'var(--color-accent)',
-                      color: 'var(--color-accent-text)',
-                      border: 'none',
-                      borderRadius: 'var(--radius-sm)',
-                      padding: '13px 28px',
-                      fontWeight: 600,
-                      fontSize: 'var(--text-base)',
-                      cursor: 'pointer',
-                      transition: 'var(--transition-base)',
-                    }}
-                  >
-                    Browse Rooms
-                  </button>
-                  {!isLogged && (
-                    <button
-                      onClick={() => navigate('/register')}
-                      style={{
-                        background: 'transparent',
-                        color: 'var(--color-text-primary)',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 'var(--radius-sm)',
-                        padding: '13px 28px',
-                        fontWeight: 500,
-                        fontSize: 'var(--text-base)',
-                        cursor: 'pointer',
-                        transition: 'var(--transition-base)',
-                      }}
-                    >
-                      Create Account
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* Right visual */}
-              <div className="col-lg-6 d-none d-lg-block">
-                <div
-                  style={{
-                    background: 'var(--color-bg-tertiary)',
-                    border: '1px solid var(--color-border)',
-                    borderRadius: 'var(--radius-xl)',
-                    padding: '40px',
-                    textAlign: 'center',
-                    position: 'relative',
-                  }}
-                >
-                  <div style={{ fontSize: '5rem', marginBottom: '16px' }}>
-                    🏨
-                  </div>
-                  <h3
-                    style={{
-                      color: 'var(--color-text-primary)',
-                      fontWeight: 700,
-                      marginBottom: '8px',
-                    }}
-                  >
-                    Hotel Booking System
-                  </h3>
-                  <p
-                    style={{
-                      color: 'var(--color-text-muted)',
-                      fontSize: 'var(--text-sm)',
-                      marginBottom: '24px',
-                    }}
-                  >
-                    Comfort meets elegance
-                  </p>
-
-                  {/* Mini stats inside card */}
-                  <div className="row g-3">
-                    {stats.map((s) => (
-                      <div key={s.label} className="col-6">
-                        <div
-                          style={{
-                            background: 'var(--color-bg-card)',
-                            border: '1px solid var(--color-border)',
-                            borderRadius: 'var(--radius-md)',
-                            padding: '16px 8px',
-                          }}
-                        >
-                          <div
-                            style={{
-                              fontSize: '1.5rem',
-                              fontWeight: 800,
-                              color: 'var(--color-accent)',
-                            }}
-                          >
-                            {s.value}
-                          </div>
-                          <div
-                            style={{
-                              fontSize: 'var(--text-xs)',
-                              color: 'var(--color-text-muted)',
-                            }}
-                          >
-                            {s.label}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="heroContainer">
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              background: 'var(--color-accent-light)',
+              border: '1px solid var(--color-accent-border)',
+              borderRadius: 'var(--radius-full)',
+              padding: '4px 14px',
+              fontSize: 'var(--text-sm)',
+              color: 'var(--color-accent)',
+              fontWeight: 600,
+              marginBottom: '20px',
+            }}
+          >
+            ⭐ Premium Hotel Experience
           </div>
-        </section>
+          <h1
+            style={{
+              fontSize: 'clamp(2rem, 5vw, 3rem)',
+              fontWeight: 800,
+              color: 'var(--color-text-primary)',
+              lineHeight: 1.15,
+              marginBottom: '20px',
+              letterSpacing: '-0.03em',
+            }}
+          >
+            Your Perfect Stay{' '}
+            <span style={{ color: 'var(--color-accent)' }}>Starts Here</span>
+          </h1>
+          <p
+            style={{
+              fontSize: 'var(--text-lg)',
+              color: 'var(--color-text-inverse)',
+              marginBottom: '36px',
+              lineHeight: 1.7,
+              maxWidth: '480px',
+            }}
+          >
+            Discover luxury and comfort at Hotel Booking System. Book your room
+            in minutes and enjoy a world-class experience.
+          </p>
+          <div className="d-flex gap-3 flex-wrap">
+            <button
+              onClick={() => navigate('/rooms')}
+              style={{
+                background: 'var(--color-accent)',
+                color: 'var(--color-accent-text)',
+                border: 'none',
+                borderRadius: 'var(--radius-sm)',
+                padding: '13px 28px',
+                fontWeight: 600,
+                fontSize: 'var(--text-base)',
+                cursor: 'pointer',
+                transition: 'var(--transition-base)',
+              }}
+            >
+              Browse Rooms
+            </button>
+            {!isLogged && (
+              <button
+                onClick={() => navigate('/register')}
+                style={{
+                  background: 'transparent',
+                  color: 'var(--color-text-primary)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: 'var(--radius-sm)',
+                  padding: '13px 28px',
+                  fontWeight: 500,
+                  fontSize: 'var(--text-base)',
+                  cursor: 'pointer',
+                  transition: 'var(--transition-base)',
+                }}
+              >
+                Create Account
+              </button>
+            )}
+          </div>
+        </div>
 
         {/* ══ FEATURES ════════════════════════════ */}
         <section style={{ padding: '80px 0' }}>

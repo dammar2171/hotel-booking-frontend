@@ -58,6 +58,8 @@ export default function BookingForm({
         navigate('/my-bookings');
       }
     } catch (error) {
+      console.log('Error: ', error);
+
       addToast('Booking failed!', 'error');
     }
   };

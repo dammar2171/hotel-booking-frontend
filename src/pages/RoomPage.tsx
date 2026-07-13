@@ -4,10 +4,10 @@ import Footer from '../components/layouts/Footer';
 import HeroSection from '../components/HeroSection';
 import FilterSection from '../components/FilterSection';
 import { motion } from 'framer-motion';
-import type { Room } from '../types';
 import { fadeUp } from '../animations/motions';
 import RoomCard from '../components/RoomCard';
 import { useRoom } from '../contexts/RoomContext';
+import Pagination from '../components/ui/Pagination';
 
 const dataHero = {
   title: 'Our Rooms',
@@ -21,10 +21,19 @@ function RoomPage() {
   const [availability, setAvailability] = useState('');
   const [priceRange, setPriceRange] = useState('');
 
-  const { rooms, fetchRooms } = useRoom();
+  const [page, setPage] = useState(1);
+  const { rooms, pagination, fetchRooms } = useRoom();
+
+  console.log(pagination);
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+    fetchRooms(newPage, 6); // 6 rooms per page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
-    fetchRooms();
+    fetchRooms(page, 6);
   }, [fetchRooms]);
 
   const filtered = rooms.filter((room) => {
@@ -75,9 +84,12 @@ function RoomPage() {
 
       {/* room card */}
       <div className="container py-5">
-        <motion.div className="row g-4"  variants={fadeUp}
-            initial="hidden"
-            animate="visible">
+        <motion.div
+          className="row g-4"
+          variants={fadeUp}
+          initial="hidden"
+          animate="visible"
+        >
           {filtered.length === 0 ? (
             <div className="empty-state">
               <div style={{ fontSize: '3rem' }}>🛏️</div>
@@ -88,6 +100,17 @@ function RoomPage() {
           )}
         </motion.div>
       </div>
+
+      {/* Pagination */}
+      {pagination && (
+        <Pagination
+          currentPage={pagination.currentPage}
+          totalPage={pagination.totalPage}
+          totalItem={pagination.totalItem}
+          limit={pagination.limit}
+          onPageChange={handlePageChange}
+        />
+      )}
       <Footer />
     </>
   );

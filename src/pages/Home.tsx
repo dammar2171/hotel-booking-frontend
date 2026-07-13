@@ -4,7 +4,7 @@ import Footer from '../components/layouts/Footer';
 import Navbar from '../components/layouts/Navbar';
 import '../styles/Home.css';
 import { motion } from 'framer-motion';
-import { fadeUp, staggerContainer, scaleUp } from '../animations/motions';
+import { fadeUp, staggerContainer } from '../animations/motions';
 import WhyChooseSection from '../components/WhyChooseSection';
 import SharedStats from '../components/SharedStats';
 
@@ -100,47 +100,14 @@ export default function Home() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              background: 'var(--color-accent-light)',
-              border: '1px solid var(--color-accent-border)',
-              borderRadius: 'var(--radius-full)',
-              padding: '4px 14px',
-              fontSize: 'var(--text-sm)',
-              color: 'var(--color-accent)',
-              fontWeight: 600,
-              marginBottom: '20px',
-            }}
-          >
-            ⭐ Premium Hotel Experience
-          </div>
+          <div className="hero_Badge">⭐ Premium Hotel Experience</div>
 
-          <h1
-            style={{
-              fontSize: 'clamp(2rem, 5vw, 3rem)',
-              fontWeight: 800,
-              color: 'var(--color-text-primary)',
-              lineHeight: 1.15,
-              marginBottom: '20px',
-              letterSpacing: '-0.03em',
-            }}
-          >
+          <h1 className="hero_heading">
             Your Perfect Stay{' '}
             <span style={{ color: 'var(--color-accent)' }}>Starts Here</span>
           </h1>
 
-          <p
-            style={{
-              fontSize: 'var(--text-lg)',
-              color: 'var(--color-text-inverse)',
-              marginBottom: '36px',
-              lineHeight: 1.7,
-              maxWidth: '480px',
-            }}
-          >
+          <p style={{}}>
             Discover luxury and comfort at Hotel Booking System. Book your room
             in minutes and enjoy a world-class experience.
           </p>

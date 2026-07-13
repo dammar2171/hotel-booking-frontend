@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import { AiFillSignal } from 'react-icons/ai';
 
 export default function Navbar() {
   const { isLogged, isAdmin, user, logout } = useAuth();
@@ -49,7 +50,9 @@ export default function Navbar() {
               gap: '8px',
             }}
           >
-            <span style={{ fontSize: '1.5rem' }}>🏨</span>
+            <span style={{ fontSize: '1.5rem', color: 'var(--color-accent)' }}>
+              <AiFillSignal />
+            </span>
             <span
               style={{
                 fontWeight: 800,

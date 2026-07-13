@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useTheme } from '../../contexts/ThemeContext';
+import { AiFillSignal } from 'react-icons/ai';
 interface NavItem {
   icon: string;
   label: string;
@@ -59,17 +60,18 @@ export default function Sidebar() {
       >
         {expanded && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <span style={{ fontSize: '1.4rem' }}>🏨</span>
+            <span style={{ fontSize: '1.4rem', color: 'var(--color-accent)' }}>
+              <AiFillSignal />
+            </span>
             <span
               style={{
-                fontWeight: 700,
-                fontSize: '1rem',
-                color: 'var(--color-accent)',
-                letterSpacing: '-0.02em',
-                whiteSpace: 'nowrap',
+                fontWeight: 800,
+                fontSize: '1.2rem',
+                letterSpacing: '-0.03em',
+                color: 'var(--color-text-primary)',
               }}
             >
-              HBD
+              H<span style={{ color: 'var(--color-accent)' }}>B</span>S
             </span>
           </div>
         )}

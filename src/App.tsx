@@ -23,6 +23,7 @@ import MyBookings from './pages/MyBooking';
 import Room from './pages/RoomPage';
 import { RoomProvider } from './contexts/RoomContext';
 import ManageContacts from './pages/Admin/ManageContacts';
+import WhatsAppButton from './components/WhatsAppButton';
 
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const { isLogged } = useAuth();
@@ -67,6 +68,7 @@ const AppRoutes = () => {
           <Route path="settings" element={<Settings />}></Route>
         </Route>
       </Routes>
+      <WhatsAppButton />
     </>
   );
 };

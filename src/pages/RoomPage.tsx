@@ -3,7 +3,9 @@ import Navbar from '../components/layouts/Navbar';
 import Footer from '../components/layouts/Footer';
 import HeroSection from '../components/HeroSection';
 import FilterSection from '../components/FilterSection';
+import { motion } from 'framer-motion';
 import type { Room } from '../types';
+import { fadeUp } from '../animations/motions';
 import RoomCard from '../components/RoomCard';
 import { useRoom } from '../contexts/RoomContext';
 
@@ -47,26 +49,35 @@ function RoomPage() {
     <>
       <Navbar />
       <HeroSection dataHero={dataHero} />
-      <FilterSection
-        search={search}
-        roomType={roomType}
-        availability={availability}
-        priceRange={priceRange}
-        onSearchChange={setSearch}
-        onRoomTypeChange={setRoomType}
-        onAvailabilityChange={setAvailability}
-        onPriceRangeChange={setPriceRange}
-        onReset={() => {
-          setSearch('');
-          setRoomType('');
-          setAvailability('');
-          setPriceRange('');
-        }}
-      />
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <FilterSection
+          search={search}
+          roomType={roomType}
+          availability={availability}
+          priceRange={priceRange}
+          onSearchChange={setSearch}
+          onRoomTypeChange={setRoomType}
+          onAvailabilityChange={setAvailability}
+          onPriceRangeChange={setPriceRange}
+          onReset={() => {
+            setSearch('');
+            setRoomType('');
+            setAvailability('');
+            setPriceRange('');
+          }}
+        />
+      </motion.div>
 
       {/* room card */}
       <div className="container py-5">
-        <div className="row g-4">
+        <motion.div className="row g-4"  variants={fadeUp}
+            initial="hidden"
+            animate="visible">
           {filtered.length === 0 ? (
             <div className="empty-state">
               <div style={{ fontSize: '3rem' }}>🛏️</div>
@@ -75,7 +86,7 @@ function RoomPage() {
           ) : (
             filtered.map((room) => <RoomCard key={room.id} room={room} />)
           )}
-        </div>
+        </motion.div>
       </div>
       <Footer />
     </>

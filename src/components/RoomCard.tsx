@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import type { Room } from '../types';
-
+import { motion } from 'framer-motion';
+import { fadeUp, staggerContainer } from '../animations/motions';
 interface RoomCardProps {
   room: Room;
 }
@@ -9,12 +10,19 @@ const RoomCard = ({ room }: RoomCardProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="col-lg-4 col-md-6">
-      <div
+    <motion.div
+      className="col-lg-4 col-md-6"
+      variants={staggerContainer}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+    >
+      <motion.div
         className="custom-card h-100 d-flex flex-column"
         style={{
           overflow: 'hidden',
         }}
+        variants={fadeUp}
       >
         {/* Image */}
         <div style={{ height: '220px', overflow: 'hidden' }}>
@@ -170,8 +178,8 @@ const RoomCard = ({ room }: RoomCardProps) => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

@@ -5,29 +5,8 @@ import Navbar from '../components/layouts/Navbar';
 import '../styles/Home.css';
 import { motion } from 'framer-motion';
 import { fadeUp, staggerContainer, scaleUp } from '../animations/motions';
-
-const features = [
-  {
-    icon: '🛏️',
-    title: 'Handpicked Rooms',
-    desc: 'Every room curated for comfort, elegance and a flawless guest experience.',
-  },
-  {
-    icon: '⚡',
-    title: 'Instant Booking',
-    desc: 'Reserve your perfect room in under 60 seconds — no calls, no waiting.',
-  },
-  {
-    icon: '🔒',
-    title: 'Secure & Private',
-    desc: 'Bank-grade encryption protects every transaction and personal detail.',
-  },
-  {
-    icon: '🌟',
-    title: 'Concierge Support',
-    desc: 'Our dedicated team is available around the clock for every request.',
-  },
-];
+import WhyChooseSection from '../components/WhyChooseSection';
+import SharedStats from '../components/SharedStats';
 
 const roomTypes = [
   {
@@ -67,37 +46,30 @@ const roomTypes = [
   },
 ];
 
-const stats = [
-  { value: '500+', label: 'Happy Guests', icon: '😊' },
-  { value: '50+', label: 'Luxury Rooms', icon: '🛏️' },
-  { value: '10+', label: 'Years Excellence', icon: '🏆' },
-  { value: '24/7', label: 'Concierge Support', icon: '🌙' },
-];
-
 const testimonials = [
   {
-    name: 'Sarah Johnson',
+    name: 'Dammar Bhatt',
     role: 'Business Traveler',
     review:
       'Absolutely flawless experience from check-in to check-out. The attention to detail is unmatched.',
     rating: 5,
-    avatar: 'S',
+    avatar: 'D',
   },
   {
-    name: 'Rajesh Sharma',
+    name: 'Prabin jagari',
     role: 'Honeymoon Guest',
     review:
       'The suite exceeded every expectation. My wife and I felt like royalty the entire stay.',
     rating: 5,
-    avatar: 'R',
+    avatar: 'P',
   },
   {
-    name: 'Emily Chen',
+    name: 'Dheeraj Bokati',
     role: 'Leisure Traveler',
     review:
       'Stunning rooms, impeccable service and the booking process was effortless. Will return.',
     rating: 5,
-    avatar: 'E',
+    avatar: 'D',
   },
 ];
 
@@ -213,219 +185,10 @@ export default function Home() {
         </motion.div>
 
         {/* ══ STATS BAR ═══════════════════════════ */}
-        <motion.section
-          style={{
-            background: 'var(--color-bg-primary)',
-            borderTop: '1px solid var(--color-border)',
-            borderBottom: '1px solid var(--color-border)',
-            padding: '40px 0',
-          }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={staggerContainer}
-        >
-          <div className="container">
-            <div className="row g-4">
-              {stats.map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  className="col-6 col-lg-3"
-                  variants={scaleUp}
-                >
-                  <div
-                    style={{
-                      textAlign: 'center',
-                      padding: '8px',
-                      borderRight:
-                        i < 3 ? '1px solid var(--color-border)' : 'none',
-                    }}
-                  >
-                    <div
-                      style={{
-                        fontSize: '1.6rem',
-                        marginBottom: '6px',
-                      }}
-                    >
-                      {s.icon}
-                    </div>
-
-                    <div
-                      style={{
-                        fontSize: '2.2rem',
-                        fontWeight: 800,
-                        color: 'var(--color-accent)',
-                        lineHeight: 1,
-                        letterSpacing: '-0.02em',
-                      }}
-                    >
-                      {s.value}
-                    </div>
-
-                    <div
-                      style={{
-                        fontSize: 'var(--text-sm)',
-                        color: 'var(--color-text-muted)',
-                        marginTop: '6px',
-                        fontWeight: 500,
-                      }}
-                    >
-                      {s.label}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.section>
+        <SharedStats />
 
         {/* ══ WHY CHOOSE US ═══════════════════════ */}
-        <motion.section
-          style={{ padding: '100px 0' }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <div className="container">
-            {/* Section Heading */}
-            <motion.div
-              variants={fadeUp}
-              style={{ textAlign: 'center', marginBottom: '60px' }}
-            >
-              <span
-                style={{
-                  display: 'inline-block',
-                  fontSize: 'var(--text-xs)',
-                  fontWeight: 700,
-                  color: 'var(--color-accent)',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  marginBottom: '12px',
-                }}
-              >
-                Our Promise
-              </span>
-
-              <h2
-                style={{
-                  fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
-                  fontWeight: 800,
-                  color: 'var(--color-text-primary)',
-                  marginBottom: '16px',
-                  letterSpacing: '-0.02em',
-                }}
-              >
-                Why Guests Choose Us
-              </h2>
-
-              <p
-                style={{
-                  color: 'var(--color-text-muted)',
-                  fontSize: 'var(--text-lg)',
-                  maxWidth: '500px',
-                  margin: '0 auto',
-                  lineHeight: 1.7,
-                }}
-              >
-                We redefine hospitality with a commitment to excellence that
-                goes beyond expectations
-              </p>
-            </motion.div>
-
-            {/* Feature Cards */}
-            <motion.div className="row g-4" variants={staggerContainer}>
-              {features.map((item, index) => (
-                <motion.div
-                  key={item.title}
-                  className="col-sm-6 col-lg-3"
-                  variants={fadeUp}
-                >
-                  <div
-                    style={{
-                      background: 'var(--color-bg-card)',
-                      border: '1px solid var(--color-border)',
-                      borderRadius: 'var(--radius-lg)',
-                      padding: '36px 28px',
-                      height: '100%',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      transition: 'var(--transition-base)',
-                    }}
-                  >
-                    {/* Corner Number */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '16px',
-                        right: '20px',
-                        fontSize: '3.5rem',
-                        fontWeight: 900,
-                        color: 'var(--color-border)',
-                        lineHeight: 1,
-                        userSelect: 'none',
-                      }}
-                    >
-                      {String(index + 1).padStart(2, '0')}
-                    </div>
-
-                    {/* Icon */}
-                    <div
-                      style={{
-                        width: '56px',
-                        height: '56px',
-                        borderRadius: 'var(--radius-md)',
-                        background: 'var(--color-accent-light)',
-                        border: '1px solid var(--color-accent-border)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '1.5rem',
-                        marginBottom: '24px',
-                      }}
-                    >
-                      {item.icon}
-                    </div>
-
-                    <h5
-                      style={{
-                        fontWeight: 700,
-                        color: 'var(--color-text-primary)',
-                        marginBottom: '10px',
-                        fontSize: 'var(--text-lg)',
-                      }}
-                    >
-                      {item.title}
-                    </h5>
-
-                    <p
-                      style={{
-                        color: 'var(--color-text-muted)',
-                        fontSize: 'var(--text-sm)',
-                        margin: 0,
-                        lineHeight: 1.7,
-                      }}
-                    >
-                      {item.desc}
-                    </p>
-
-                    {/* Bottom Accent */}
-                    <div
-                      style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        width: '40px',
-                        height: '3px',
-                        background: 'var(--color-accent)',
-                        borderRadius: '0 var(--radius-full) 0 0',
-                      }}
-                    />
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </motion.section>
+        <WhyChooseSection />
 
         {/* ══ ROOM TYPES ══════════════════════════ */}
         <motion.section

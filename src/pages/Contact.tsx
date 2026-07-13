@@ -1,13 +1,14 @@
 import Navbar from '../components/layouts/Navbar';
 import Footer from '../components/layouts/Footer';
 import { useNavigate } from 'react-router-dom';
-import Card from '../components/ui/Card';
 import CtaCard from '../components/CtaCard';
 import HeroSection from '../components/HeroSection';
 import { useState, type FormEvent } from 'react';
 import type { Contact } from '../types';
 import api from '../api/axios';
 import { useToast } from '../contexts/ToastContext';
+import WhyChooseSection from '../components/WhyChooseSection';
+import MapSection from '../components/MapSection';
 
 const ctaData = {
   title: 'Ready to book your stay?',
@@ -38,29 +39,6 @@ const contactInfo = [
   },
 ];
 
-const reasons = [
-  {
-    icon: '⚡',
-    title: 'Quick Response',
-    desc: 'We usually reply within a few hours.',
-  },
-  {
-    icon: '🛎️',
-    title: '24/7 Support',
-    desc: 'Our support team is always available.',
-  },
-  {
-    icon: '😊',
-    title: 'Friendly Staff',
-    desc: 'Professional team ready to help.',
-  },
-  {
-    icon: '🔒',
-    title: 'Secure Communication',
-    desc: 'Your information remains safe with us.',
-  },
-];
-
 const dataHero = {
   title: 'Contact Us',
   heading: "We'd Love To Hear From You",
@@ -69,7 +47,6 @@ const dataHero = {
 };
 
 export default function Contact() {
-  const navigate = useNavigate();
   const { addToast } = useToast();
   const [formData, setFormData] = useState<Contact>({
     name: '',
@@ -200,29 +177,13 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* WHY CONTACT */}
-        <section
-          style={{
-            padding: '80px 0',
-            background: 'var(--color-bg-primary)',
-          }}
-        >
-          <div className="container">
-            <div className="text-center mb-5">
-              <h2>Why Contact Us?</h2>
-              <p>Our team is always ready to assist you.</p>
-            </div>
-            <div className="row g-4">
-              {reasons.map((item) => (
-                <div className="col-md-6 col-lg-3" key={item.title}>
-                  <Card item={item} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-        {/* FAQ */}
+        {/* MAP SECTION */}
+        <MapSection />
 
+        {/* WHY CONTACT */}
+        <WhyChooseSection />
+
+        {/* FAQ */}
         <section className="py-5">
           <div className="container">
             <h2 className="text-center mb-5">Frequently Asked Questions</h2>
@@ -272,6 +233,7 @@ export default function Contact() {
             </div>
           </div>
         </section>
+
         {/* CTA */}
         <section className="py-5">
           <div className="container">

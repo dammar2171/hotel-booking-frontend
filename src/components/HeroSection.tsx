@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { fadeUp } from '../animations/motions';
 interface HeroSectionProps {
   title: string;
   heading: string;
@@ -6,12 +8,16 @@ interface HeroSectionProps {
 }
 function HeroSection({ dataHero }: { dataHero: HeroSectionProps }) {
   return (
-    <section
+    <motion.section
       style={{
         padding: '90px 0',
         background: 'var(--color-bg-primary)',
         borderBottom: '1px solid var(--color-border)',
       }}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
     >
       <div className="container text-center">
         <div
@@ -48,7 +54,7 @@ function HeroSection({ dataHero }: { dataHero: HeroSectionProps }) {
           {dataHero.description}
         </p>
       </div>
-    </section>
+    </motion.section>
   );
 }
 

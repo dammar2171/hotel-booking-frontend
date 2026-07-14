@@ -2,8 +2,11 @@ import Navbar from '../components/layouts/Navbar';
 import Footer from '../components/layouts/Footer';
 import CtaCard from '../components/CtaCard';
 import HeroSection from '../components/HeroSection';
+import { FaGithub } from 'react-icons/fa';
+import { TiSocialLinkedin } from 'react-icons/ti';
 import aboutImage from '../assets/about.jpg';
 import WhyChooseSection from '../components/WhyChooseSection';
+import dammar from '../assets/dammar.png';
 import { motion } from 'framer-motion';
 import { fadeUp, scaleUp, staggerContainer } from '../animations/motions';
 import SharedStats from '../components/SharedStats';
@@ -18,9 +21,11 @@ const team = [
     name: 'Dammar Bhatt',
     role: 'Founder & CEO',
     desc: 'Visionary leader with 10+ years in luxury hospitality management.',
-    avatar:
-      'https://api.dicebear.com/7.x/micah/svg?seed=Dammar',
-    socials: { linkedin: '#', twitter: '#' },
+    avatar: `${dammar}`,
+    socials: {
+      linkedin: 'https://www.linkedin.com/in/dammar-bhatt-0a41aa302/',
+      Github: 'https://github.com/dammar2171',
+    },
     tag: 'Leadership',
   },
   {
@@ -1008,12 +1013,12 @@ export default function About() {
                             transition: 'var(--transition-fast)',
                           }}
                         >
-                          in
+                          <TiSocialLinkedin />
                         </motion.a>
                         <motion.a
                           whileHover={{ scale: 1.2 }}
                           transition={{ duration: 0.15 }}
-                          href={member.socials.twitter}
+                          href={member.socials.Github}
                           style={{
                             width: '36px',
                             height: '36px',
@@ -1029,7 +1034,7 @@ export default function About() {
                             transition: 'var(--transition-fast)',
                           }}
                         >
-                          𝕏
+                          <FaGithub />
                         </motion.a>
                       </div>
                     </div>

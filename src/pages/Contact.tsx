@@ -19,12 +19,12 @@ const contactInfo = [
   {
     icon: '📍',
     title: 'Our Location',
-    value: 'Kathmandu, Nepal',
+    value: 'Mahendranagar, Nepal',
   },
   {
     icon: '📞',
     title: 'Phone',
-    value: '+977 9800000000',
+    value: '+977 9805752792',
   },
   {
     icon: '✉️',

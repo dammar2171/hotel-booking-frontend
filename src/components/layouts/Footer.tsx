@@ -54,7 +54,7 @@ const Footer = () => {
             >
               Quick Links
             </h6>
-            {['Home', 'Rooms', 'About', 'Contact'].map((link) => (
+            {['Home', 'rooms', 'about', 'contact'].map((link) => (
               <div key={link} style={{ marginBottom: '10px' }}>
                 <span
                   onClick={() =>

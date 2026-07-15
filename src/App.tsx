@@ -25,11 +25,6 @@ import { RoomProvider } from './contexts/RoomContext';
 import ManageContacts from './pages/Admin/ManageContacts';
 import WhatsAppButton from './components/WhatsAppButton';
 
-const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
-  const { isLogged } = useAuth();
-  return isLogged ? <>{children}</> : <Navigate to={'/login'} />;
-};
-
 const ProtectedAdminRoutes = ({ children }: { children: React.ReactNode }) => {
   const { isAdmin } = useAuth();
   return isAdmin ? <>{children}</> : <Navigate to={'/'} />;

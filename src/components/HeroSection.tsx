@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { fadeUp } from '../animations/motions';
 interface HeroSectionProps {

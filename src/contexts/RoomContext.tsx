@@ -151,8 +151,8 @@ export function RoomProvider({ children }: { children: React.ReactNode }) {
             rooms: state.rooms,
             pagination: state.pagination ?? {
               currentPage: 1,
-              totalPages: 1,
-              totalItems: state.rooms.length,
+              totalPage: 1,
+              totalItem: state.rooms.length,
               limit: 10,
             },
           },

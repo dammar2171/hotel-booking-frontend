@@ -8,14 +8,6 @@ import LoadingSpinner from '../components/ui/LoadingSpinner';
 import Footer from '../components/layouts/Footer';
 import Navbar from '../components/layouts/Navbar';
 
-interface Summary {
-  label: string;
-  value: string;
-  icon: string;
-  color: string;
-  bg: string;
-}
-
 interface Booking {
   id: number;
   guest_id: number;

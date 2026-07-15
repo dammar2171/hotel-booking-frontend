@@ -1,4 +1,3 @@
-import { useAuth } from '../../contexts/AuthContext';
 import type { User } from '../../types';
 type ActiveTab = 'profile' | 'password' | 'appearance' | 'about';
 interface Card {

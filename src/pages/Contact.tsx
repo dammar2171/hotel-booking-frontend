@@ -1,6 +1,5 @@
 import Navbar from '../components/layouts/Navbar';
 import Footer from '../components/layouts/Footer';
-import { useNavigate } from 'react-router-dom';
 import CtaCard from '../components/CtaCard';
 import HeroSection from '../components/HeroSection';
 import { useState, type FormEvent } from 'react';

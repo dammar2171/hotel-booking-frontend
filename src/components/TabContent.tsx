@@ -29,7 +29,7 @@ interface TabContentProps {
   card: Card;
   user: User | null;
 }
-function TabContent({ activeTab, setActiveTab, card, user }: TabContentProps) {
+function TabContent({ activeTab, card, user }: TabContentProps) {
   const { theme, themeToggle } = useTheme();
   const { addToast } = useToast();
   const [submittingProfile, setSubmittingProfile] = useState(false);
